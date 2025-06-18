@@ -262,15 +262,38 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const paisSelect = document.getElementById("pais");
-    console.log("Select de países encontrado:", paisSelect);
     const estadoSelect = document.getElementById("estado");
     const cidadeSelect = document.getElementById("cidade");
+    let dados;
 
-    async function carregarDados() {
+    // Função para carregar os dados do JSON
+    async function carregarDadosPaises() {
         try {
             const response = await fetch("/dados.json");
             if (!response.ok) throw new Error("Erro ao carregar os dados");
-            const dados = await response.json();
+            dados = await response.json();
+
+            // Preencher países no select
+            dados.paises.forEach(pais => {
+                const option = document.createElement("option");
+                option.value = pais.id;
+                option.textContent = pais.nome;
+                paisSelect.appendChild(option);
+            });
+            console.log("Opções de países adicionadas ao select:", paisSelect.innerHTML);
+        } catch (error) {
+            console.error("Erro ao carregar os dados:", error);
+            alert("Não foi possível carregar os dados. Tente novamente mais tarde.");
+        }
+    }
+    carregarDadosPaises();
+    console.log("Select de países encontrado:", paisSelect);
+
+     async function carregarDadosPaises() {
+        try {
+            const response = await fetch("/dados.json");
+            if (!response.ok) throw new Error("Erro ao carregar os dados");
+            dados = await response.json();
 
             // Preencher países no select
             dados.paises.forEach(pais => {
@@ -280,38 +303,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 paisSelect.appendChild(option);
             });
 
-            console.log("Países carregados no select:", paisSelect.innerHTML);
-
-            paisSelect.addEventListener("change", async (event) => {
-                const paisId = event.target.value;
-                estadoSelect.innerHTML = '<option value="">Selecione um estado</option>';
-                cidadeSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
-
-                if (paisId) {
-                    const pais = dados.paises.find(p => p.id == paisId);
-                    if (pais && pais.estados) {
-                        pais.estados.forEach(estado => {
-                            const option = document.createElement("option");
-                            option.value = estado.id;
-                            option.textContent = estado.nome;
-                            estadoSelect.appendChild(option);
-                        });
-                    }
-                }
+            const paisId = paisSelect.value;
+            estadoSelect.disabled = false;
+            if (paisId) {
+            const pais = dados?.paises?.find(p => p.id == paisId);
+            if (pais && pais.estados) {
+                pais.estados.forEach(estado => {
+                    const option = document.createElement("option");
+                    option.value = estado.id;
+                    option.textContent = estado.nome;
+                    estadoSelect.appendChild(option);
+                });
+                
             }
-            );
-
+        }
+            console.log("Opções de países adicionadas ao select:", paisSelect.innerHTML);
         } catch (error) {
             console.error("Erro ao carregar os dados:", error);
             alert("Não foi possível carregar os dados. Tente novamente mais tarde.");
         }
     }
 
-    carregarDados();
+    // Evento para atualizar estados com base no país selecionado
+    // paisSelect.addEventListener("change", () => {
+    //     const paisId = paisSelect.value;
+    //     estadoSelect.disabled = false;
+    //     if (paisId) {
+    //         const pais = dados?.paises?.find(p => p.id == paisId);
+    //         if (pais && pais.estados) {
+    //             pais.estados.forEach(estado => {
+    //                 const option = document.createElement("option");
+    //                 option.value = estado.id;
+    //                 option.textContent = estado.nome;
+    //                 estadoSelect.appendChild(option);
+    //             });
+                
+    //         }
+    //     }
+    // });
 
-
-
-// Evento para envio do formulário
+    // Evento para envio do formulário
     const form = document.querySelector("form");
     if (form) {
         form.addEventListener("submit", async (event) => {
@@ -345,11 +376,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const result = await response.json();
                 alert(`Cliente cadastrado com sucesso: ${result.nome}`);
-
             } catch (error) {
                 console.error("Erro no cadastro:", error);
                 alert("Ocorreu um erro ao cadastrar o cliente. Tente novamente mais tarde.");
             }
         });
     }
+
+    // Carregar dados ao iniciar
+    
 });
