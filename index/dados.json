@@ -1,108 +1,491 @@
+
 {
   "paises": [
     {
       "id": 1,
-      "nome": "Afeganistão"
+      "nome": "Afeganistão",
+      "estados": [
+        {
+          "id": 1000,
+          "nome": "Balkh",
+          "cidades": [
+            {"id": 10001, "nome": "Mazar-i-Sharif"},
+            {"id": 10002, "nome": "Chahar Bolak"},
+            {"id": 10003, "nome": "Sholgara"}
+          ]
+        },
+        {
+          "id": 1001,
+          "nome": "Kabul",
+          "cidades": [
+            {"id": 10010, "nome": "Kabul"},
+            {"id": 10011, "nome": "Bagram"},
+            {"id": 10012, "nome": "Charikar"}
+          ]
+        }
+      ]
     },
     {
       "id": 2,
-      "nome": "África do Sul"
+      "nome": "Albânia",
+      "estados": [
+        {
+          "id": 2000,
+          "nome": "Tirana",
+          "cidades": [
+            {"id": 20001, "nome": "Tirana"},
+            {"id": 20002, "nome": "Durrës"},
+            {"id": 20003, "nome": "Vlorë"}
+          ]
+        },
+        {
+          "id": 2001,
+          "nome": "Shkodër",
+          "cidades": [
+            {"id": 20010, "nome": "Shkodër"},
+            {"id": 20011, "nome": "Pukë"},
+            {"id": 20012, "nome": "Lezhë"}
+          ]
+        }
+      ]
     },
     {
       "id": 3,
-      "nome": "Albânia"
+      "nome": "Argélia",
+      "estados": [
+        {
+          "id": 3000,
+          "nome": "Algiers",
+          "cidades": [
+            {"id": 30001, "nome": "Algiers"},
+            {"id": 30002, "nome": "Boumerdès"},
+            {"id": 30003, "nome": "Blida"}
+          ]
+        },
+        {
+          "id": 3001,
+          "nome": "Oran",
+          "cidades": [
+            {"id": 30010, "nome": "Oran"},
+            {"id": 30011, "nome": "Mostaganem"},
+            {"id": 30012, "nome": "Tlemcen"}
+          ]
+        }
+      ]
     },
     {
       "id": 4,
-      "nome": "Alemanha"
+      "nome": "Andorra",
+      "estados": [
+        {
+          "id": 4000,
+          "nome": "Andorra la Vella",
+          "cidades": [
+            {"id": 40001, "nome": "Andorra la Vella"},
+            {"id": 40002, "nome": "Escaldes-Engordany"},
+            {"id": 40003, "nome": "Encamp"}
+          ]
+        }
+      ]
     },
     {
       "id": 5,
-      "nome": "Andorra"
+      "nome": "Angola",
+      "estados": [
+        {
+          "id": 5000,
+          "nome": "Luanda",
+          "cidades": [
+            {"id": 50001, "nome": "Luanda"},
+            {"id": 50002, "nome": "Benguela"},
+            {"id": 50003, "nome": "Huambo"}
+          ]
+        },
+        {
+          "id": 5001,
+          "nome": "Huíla",
+          "cidades": [
+            {"id": 50010, "nome": "Lubango"},
+            {"id": 50011, "nome": "Cacula"},
+            {"id": 50012, "nome": "Chibia"}
+          ]
+        }
+      ]
     },
     {
       "id": 6,
-      "nome": "Angola"
+      "nome": "Antígua e Barbuda",
+      "estados": [
+        {
+          "id": 6000,
+          "nome": "Saint John’s",
+          "cidades": [
+            {"id": 60001, "nome": "Saint John’s"},
+            {"id": 60002, "nome": "All Saints"},
+            {"id": 60003, "nome": "Liberta"}
+          ]
+        }
+      ]
     },
     {
       "id": 7,
-      "nome": "Antígua e Barbuda"
+      "nome": "Argentina",
+      "estados": [
+        {
+          "id": 7000,
+          "nome": "Buenos Aires",
+          "cidades": [
+            {"id": 70001, "nome": "Buenos Aires"},
+            {"id": 70002, "nome": "La Plata"},
+            {"id": 70003, "nome": "Mar del Plata"}
+          ]
+        },
+        {
+          "id": 7001,
+          "nome": "Córdoba",
+          "cidades": [
+            {"id": 70010, "nome": "Córdoba"},
+            {"id": 70011, "nome": "Villa María"},
+            {"id": 70012, "nome": "Río Cuarto"}
+          ]
+        }
+      ]
     },
     {
       "id": 8,
-      "nome": "Arábia Saudita"
+      "nome": "Armênia",
+      "estados": [
+        {
+          "id": 8000,
+          "nome": "Yerevan",
+          "cidades": [
+            {"id": 80001, "nome": "Yerevan"},
+            {"id": 80002, "nome": "Gyumri"},
+            {"id": 80003, "nome": "Vagharshapat"}
+          ]
+        }
+      ]
     },
     {
       "id": 9,
-      "nome": "Argélia"
+      "nome": "Austrália",
+      "estados": [
+        {
+          "id": 9000,
+          "nome": "Nova Gales do Sul",
+          "cidades": [
+            {"id": 90001, "nome": "Sydney"},
+            {"id": 90002, "nome": "Newcastle"},
+            {"id": 90003, "nome": "Wollongong"}
+          ]
+        },
+        {
+          "id": 9001,
+          "nome": "Victoria",
+          "cidades": [
+            {"id": 90010, "nome": "Melbourne"},
+            {"id": 90011, "nome": "Geelong"},
+            {"id": 90012, "nome": "Ballarat"}
+          ]
+        }
+      ]
     },
     {
       "id": 10,
-      "nome": "Argentina"
+      "nome": "Áustria",
+      "estados": [
+        {
+          "id": 10000,
+          "nome": "Viena",
+          "cidades": [
+            {"id": 100001, "nome": "Viena"},
+            {"id": 100002, "nome": "Graz"},
+            {"id": 100003, "nome": "Linz"}
+          ]
+        },
+        {
+          "id": 10001,
+          "nome": "Tirol",
+          "cidades": [
+            {"id": 100010, "nome": "Innsbruck"},
+            {"id": 100011, "nome": "Kühtai"},
+            {"id": 100012, "nome": "Sölden"}
+          ]
+        }
+      ]
     },
     {
       "id": 11,
-      "nome": "Armênia"
+      "nome": "Azerbaijão",
+      "estados": [
+        {
+          "id": 11000,
+          "nome": "Baku",
+          "cidades": [
+            {"id": 110001, "nome": "Baku"},
+            {"id": 110002, "nome": "Sumqayit"},
+            {"id": 110003, "nome": "Ganja"}
+          ]
+        },
+        {
+          "id": 11001,
+          "nome": "Ganja-Kazakh",
+          "cidades": [
+            {"id": 110010, "nome": "Ganja"},
+            {"id": 110011, "nome": "Qazakh"},
+            {"id": 110012, "nome": "Shamkir"}
+          ]
+        }
+      ]
     },
     {
       "id": 12,
-      "nome": "Austrália"
+      "nome": "Bahamas",
+      "estados": [
+        {
+          "id": 12000,
+          "nome": "Nova Providência",
+          "cidades": [
+            {"id": 120001, "nome": "Nassau"},
+            {"id": 120002, "nome": "Paradise Island"},
+            {"id": 120003, "nome": "Cable Beach"}
+          ]
+        }
+      ]
     },
     {
       "id": 13,
-      "nome": "Áustria"
+      "nome": "Bahrein",
+      "estados": [
+        {
+          "id": 13000,
+          "nome": "Manama",
+          "cidades": [
+            {"id": 130001, "nome": "Manama"},
+            {"id": 130002, "nome": "Riffa"},
+            {"id": 130003, "nome": "Muharraq"}
+          ]
+        }
+      ]
     },
     {
       "id": 14,
-      "nome": "Azerbaijão"
+      "nome": "Bangladesh",
+      "estados": [
+        {
+          "id": 14000,
+          "nome": "Dhaka",
+          "cidades": [
+            {"id": 140001, "nome": "Dhaka"},
+            {"id": 140002, "nome": "Chittagong"},
+            {"id": 140003, "nome": "Khulna"}
+          ]
+        },
+        {
+          "id": 14001,
+          "nome": "Rajshahi",
+          "cidades": [
+            {"id": 140010, "nome": "Rajshahi"},
+            {"id": 140011, "nome": "Bogura"},
+            {"id": 140012, "nome": "Pabna"}
+          ]
+        }
+      ]
     },
     {
       "id": 15,
-      "nome": "Bahamas"
+      "nome": "Barbados",
+      "estados": [
+        {
+          "id": 15000,
+          "nome": "Bridgetown",
+          "cidades": [
+            {"id": 150001, "nome": "Bridgetown"},
+            {"id": 150002, "nome": "Speightstown"},
+            {"id": 150003, "nome": "Oistins"}
+          ]
+        }
+      ]
     },
     {
       "id": 16,
-      "nome": "Bahrein"
+      "nome": "Belarus",
+      "estados": [
+        {
+          "id": 16000,
+          "nome": "Minsk",
+          "cidades": [
+            {"id": 160001, "nome": "Minsk"},
+            {"id": 160002, "nome": "Brest"},
+            {"id": 160003, "nome": "Gomel"}
+          ]
+        },
+        {
+          "id": 16001,
+          "nome": "Grodno",
+          "cidades": [
+            {"id": 160010, "nome": "Grodno"},
+            {"id": 160011, "nome": "Lida"},
+            {"id": 160012, "nome": "Novogrudok"}
+          ]
+        }
+      ]
     },
     {
       "id": 17,
-      "nome": "Bangladesh"
+      "nome": "Bélgica",
+      "estados": [
+        {
+          "id": 17000,
+          "nome": "Bruxelas",
+          "cidades": [
+            {"id": 170001, "nome": "Bruxelas"},
+            {"id": 170002, "nome": "Antuérpia"},
+            {"id": 170003, "nome": "Gante"}
+          ]
+        },
+        {
+          "id": 17001,
+          "nome": "Flandres",
+          "cidades": [
+            {"id": 170010, "nome": "Bruges"},
+            {"id": 170011, "nome": "Leuven"},
+            {"id": 170012, "nome": "Mechelen"}
+          ]
+        }
+      ]
     },
     {
       "id": 18,
-      "nome": "Barbados"
+      "nome": "Belize",
+      "estados": [
+        {
+          "id": 18000,
+          "nome": "Belmopan",
+          "cidades": [
+            {"id": 180001, "nome": "Belmopan"},
+            {"id": 180002, "nome": "San Ignacio"},
+            {"id": 180003, "nome": "Orange Walk"}
+          ]
+        }
+      ]
     },
     {
       "id": 19,
-      "nome": "Belarus"
+      "nome": "Benin",
+      "estados": [
+        {
+          "id": 19000,
+          "nome": "Cotonou",
+          "cidades": [
+            {"id": 190001, "nome": "Cotonou"},
+            {"id": 190002, "nome": "Porto-Novo"},
+            {"id": 190003, "nome": "Parakou"}
+          ]
+        },
+        {
+          "id": 19001,
+          "nome": "Donga",
+          "cidades": [
+            {"id": 190010, "nome": "Djougou"},
+            {"id": 190011, "nome": "Natitingou"},
+            {"id": 190012, "nome": "Copargo"}
+          ]
+        }
+      ]
     },
     {
       "id": 20,
-      "nome": "Bélgica"
+      "nome": "Bermudas",
+      "estados": [
+        {
+          "id": 20000,
+          "nome": "Hamilton",
+          "cidades": [
+            {"id": 200001, "nome": "Hamilton"},
+            {"id": 200002, "nome": "St. George's"},
+            {"id": 200003, "nome": "Somerset Village"}
+          ]
+        }
+      ]
     },
     {
       "id": 21,
-      "nome": "Belize"
+      "nome": "Butão",
+      "estados": [
+        {
+          "id": 21000,
+          "nome": "Thimphu",
+          "cidades": [
+            {"id": 210001, "nome": "Thimphu"},
+            {"id": 210002, "nome": "Paro"},
+            {"id": 210003, "nome": "Phuentsholing"}
+          ]
+        }
+      ]
     },
     {
       "id": 22,
-      "nome": "Benin"
+      "nome": "Bolívia",
+      "estados": [
+        {
+          "id": 22000,
+          "nome": "La Paz",
+          "cidades": [
+            {"id": 220001, "nome": "La Paz"},
+            {"id": 220002, "nome": "Santa Cruz de la Sierra"},
+            {"id": 220003, "nome": "Cochabamba"}
+          ]
+        },
+        {
+          "id": 22001,
+          "nome": "Cochabamba",
+          "cidades": [
+            {"id": 220010, "nome": "Cochabamba"},
+            {"id": 220011, "nome": "Quillacollo"},
+            {"id": 220012, "nome": "Sacaba"}
+          ]
+        }
+      ]
     },
     {
       "id": 23,
-      "nome": "Butão"
+      "nome": "Bósnia e Herzegovina",
+      "estados": [
+        {
+          "id": 23000,
+          "nome": "Sarajevo",
+          "cidades": [
+            {"id": 230001, "nome": "Sarajevo"},
+            {"id": 230002, "nome": "Zenica"},
+            {"id": 230003, "nome": "Tuzla"}
+          ]
+        },
+        {
+          "id": 23001,
+          "nome": "Banja Luka",
+          "cidades": [
+            {"id": 230010, "nome": "Banja Luka"},
+            {"id": 230011, "nome": "Prijedor"},
+            {"id": 230012, "nome": "Doboj"}
+          ]
+        }
+      ]
     },
     {
       "id": 24,
-      "nome": "Bolívia"
-    },
-    {
-      "id": 25,
-      "nome": "Bósnia e Herzegovina"
-    },
-    {
-      "id": 26,
-      "nome": "Botsuana"
+      "nome": "Botsuana",
+      "estados": [
+        {
+          "id": 24000,
+          "nome": "Gaborone",
+          "cidades": [
+            {"id": 240001, "nome": "Gaborone"},
+            {"id": 240002, "nome": "Francistown"},
+            {"id": 240003, "nome": "Molepolole"}
+          ]
+        }
+      ]
     },
     {
       "id": 27,
@@ -370,87 +753,297 @@
     },
     {
       "id": 28,
-      "nome": "Brunei"
+      "nome": "Bulgária",
+      "estados": [
+        {
+          "id": 2800,
+          "nome": "Sofía",
+          "cidades": [
+            {"id": 28001, "nome": "Sofía"},
+            {"id": 28002, "nome": "Plovdiv"},
+            {"id": 28003, "nome": "Varna"}
+          ]
+        },
+        {
+          "id": 2801,
+          "nome": "Burgas",
+          "cidades": [
+            {"id": 28010, "nome": "Burgas"},
+            {"id": 28011, "nome": "Stara Zagora"},
+            {"id": 28012, "nome": "Ruse"}
+          ]
+        }
+      ]
     },
     {
       "id": 29,
-      "nome": "Bulgária"
+      "nome": "Burquina Faso",
+      "estados": [
+        {
+          "id": 2900,
+          "nome": "Ouagadougou",
+          "cidades": [
+            {"id": 29001, "nome": "Ouagadougou"},
+            {"id": 29002, "nome": "Bobo-Dioulasso"},
+            {"id": 29003, "nome": "Koudougou"}
+          ]
+        }
+      ]
     },
     {
       "id": 30,
-      "nome": "Burkina Faso"
+      "nome": "Burundi",
+      "estados": [
+        {
+          "id": 3000,
+          "nome": "Bujumbura",
+          "cidades": [
+            {"id": 30001, "nome": "Bujumbura"},
+            {"id": 30002, "nome": "Gitega"},
+            {"id": 30003, "nome": "Ngozi"}
+          ]
+        }
+      ]
     },
     {
       "id": 31,
-      "nome": "Burundi"
+      "nome": "Cabo Verde",
+      "estados": [
+        {
+          "id": 3100,
+          "nome": "Praia",
+          "cidades": [
+            {"id": 31001, "nome": "Praia"},
+            {"id": 31002, "nome": "Mindelo"},
+            {"id": 31003, "nome": "Santa Maria"}
+          ]
+        }
+      ]
     },
     {
       "id": 32,
-      "nome": "Butão"
+      "nome": "Camarões",
+      "estados": [
+        {
+          "id": 3200,
+          "nome": "Yaoundé",
+          "cidades": [
+            {"id": 32001, "nome": "Yaoundé"},
+            {"id": 32002, "nome": "Douala"},
+            {"id": 32003, "nome": "Garoua"}
+          ]
+        }
+      ]
     },
     {
       "id": 33,
-      "nome": "Cabo Verde"
+      "nome": "Canadá",
+      "estados": [
+        {
+          "id": 3300,
+          "nome": "Ontário",
+          "cidades": [
+            {"id": 33001, "nome": "Toronto"},
+            {"id": 33002, "nome": "Ottawa"},
+            {"id": 33003, "nome": "Hamilton"}
+          ]
+        },
+        {
+          "id": 3301,
+          "nome": "Quebec",
+          "cidades": [
+            {"id": 33010, "nome": "Montreal"},
+            {"id": 33011, "nome": "Quebec City"},
+            {"id": 33012, "nome": "Laval"}
+          ]
+        }
+      ]
     },
     {
       "id": 34,
-      "nome": "Camarões"
+      "nome": "Chade",
+      "estados": [
+        {
+          "id": 3400,
+          "nome": "N'Djamena",
+          "cidades": [
+            {"id": 34001, "nome": "N'Djamena"},
+            {"id": 34002, "nome": "Moundou"},
+            {"id": 34003, "nome": "'Abeché"}
+          ]
+        }
+      ]
     },
     {
       "id": 35,
-      "nome": "Camboja"
+      "nome": "Chile",
+      "estados": [
+        {
+          "id": 3500,
+          "nome": "Santiago",
+          "cidades": [
+            {"id": 35001, "nome": "Santiago"},
+            {"id": 35002, "nome": "Valparaíso"},
+            {"id": 35003, "nome": "Concepción"}
+          ]
+        },
+        {
+          "id": 3501,
+          "nome": "Antofagasta",
+          "cidades": [
+            {"id": 35010, "nome": "Antofagasta"},
+            {"id": 35011, "nome": "Calama"},
+            {"id": 35012, "nome": "Iquique"}
+          ]
+        }
+      ]
     },
     {
       "id": 36,
-      "nome": "Canadá"
+      "nome": "China",
+      "estados": [
+        {
+          "id": 3600,
+          "nome": "Pequim",
+          "cidades": [
+            {"id": 36001, "nome": "Pequim"},
+            {"id": 36002, "nome": "Xangai"},
+            {"id": 36003, "nome": "Shenzhen"}
+          ]
+        },
+        {
+          "id": 3601,
+          "nome": "Cantão",
+          "cidades": [
+            {"id": 36010, "nome": "Cantão"},
+            {"id": 36011, "nome": "Wuhan"},
+            {"id": 36012, "nome": "Chongqing"}
+          ]
+        }
+      ]
     },
     {
       "id": 37,
-      "nome": "Catar"
+      "nome": "Chipre",
+      "estados": [
+        {
+          "id": 3700,
+          "nome": "Nicósia",
+          "cidades": [
+            {"id": 37001, "nome": "Nicósia"},
+            {"id": 37002, "nome": "Limassol"},
+            {"id": 37003, "nome": "Larnaca"}
+          ]
+        }
+      ]
     },
     {
       "id": 38,
-      "nome": "Cazaquistão"
+      "nome": "Colômbia",
+      "estados": [
+        {
+          "id": 3800,
+          "nome": "Bogotá",
+          "cidades": [
+            {"id": 38001, "nome": "Bogotá"},
+            {"id": 38002, "nome": "Medellín"},
+            {"id": 38003, "nome": "Cali"}
+          ]
+        },
+        {
+          "id": 3801,
+          "nome": "Antioquia",
+          "cidades": [
+            {"id": 38010, "nome": "Medellín"},
+            {"id": 38011, "nome": "Itagüí"},
+            {"id": 38012, "nome": "Envigado"}
+          ]
+        }
+      ]
     },
     {
       "id": 39,
-      "nome": "Chade"
+      "nome": "Comores",
+      "estados": [
+        {
+          "id": 3900,
+          "nome": "Moroni",
+          "cidades": [
+            {"id": 39001, "nome": "Moroni"},
+            {"id": 39002, "nome": "Moutsamoudou"},
+            {"id": 39003, "nome": "Domoni"}
+          ]
+        }
+      ]
     },
     {
       "id": 40,
-      "nome": "Chile"
+      "nome": "Congo",
+      "estados": [
+        {
+          "id": 4000,
+          "nome": "Brazzaville",
+          "cidades": [
+            {"id": 40001, "nome": "Brazzaville"},
+            {"id": 40002, "nome": "Pointe-Noire"},
+            {"id": 40003, "nome": "Dolisie"}
+          ]
+        }
+      ]
     },
     {
       "id": 41,
-      "nome": "China"
+      "nome": "Coreia do Norte",
+      "estados": [
+        {
+          "id": 4100,
+          "nome": "Pyongyang",
+          "cidades": [
+            {"id": 41001, "nome": "Pyongyang"},
+            {"id": 41002, "nome": "Nampo"},
+            {"id": 41003, "nome": "Sinuiju"}
+          ]
+        }
+      ]
     },
     {
       "id": 42,
-      "nome": "Chipre"
+      "nome": "Coreia do Sul",
+      "estados": [
+        {
+          "id": 4200,
+          "nome": "Seul",
+          "cidades": [
+            {"id": 42001, "nome": "Seul"},
+            {"id": 42002, "nome": "Busan"},
+            {"id": 42003, "nome": "Incheon"}
+          ]
+        },
+        {
+          "id": 4201,
+          "nome": "Gyeonggi",
+          "cidades": [
+            {"id": 42010, "nome": "Suwon"},
+            {"id": 42011, "nome": "Goyang"},
+            {"id": 42012, "nome": "Seongnam"}
+          ]
+        }
+      ]
     },
     {
       "id": 43,
-      "nome": "Colômbia"
-    },
-    {
-      "id": 44,
-      "nome": "Comores"
-    },
-    {
-      "id": 45,
-      "nome": "Coreia do Norte"
-    },
-    {
-      "id": 46,
-      "nome": "Coreia do Sul"
-    },
-    {
-      "id": 47,
-      "nome": "Costa do Marfim"
-    },
-    {
-      "id": 48,
-      "nome": "Costa Rica"
+      "nome": "Costa Rica",
+      "estados": [
+        {
+          "id": 4300,
+          "nome": "San José",
+          "cidades": [
+            {"id": 43001, "nome": "San José"},
+            {"id": 43002, "nome": "Alajuela"},
+            {"id": 43003, "nome": "Cartago"}
+          ]
+        }
+      ]
     },
     {
       "id": 49,

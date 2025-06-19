@@ -259,88 +259,81 @@
 //             {"id": 27162, "nome": "Olinda"}
 //           ]
 //         },
+// scripts/CadastroClientes.js
 
+let dados;
+
+// Carrega os dados dos países e preenche todos os selects de país dinâmicos
+async function carregarDadosPaises() {
+    try {
+        const response = await fetch("/dados.json");
+        if (!response.ok) throw new Error("Erro ao carregar os dados");
+        dados = await response.json();
+        preencherTodosSelectsPais();
+    } catch (error) {
+        console.error("Erro ao carregar os dados:", error);
+        alert("Não foi possível carregar os dados. Tente novamente mais tarde.");
+    }
+}
+
+// Preenche todos os selects de país visíveis
+function preencherTodosSelectsPais() {
+    document.querySelectorAll('select[id^="pais-"]').forEach(select => {
+        // Limpa opções antigas, exceto a primeira
+        select.length = 1;
+        dados.paises.forEach(pais => {
+            const option = document.createElement("option");
+            option.value = pais.id;
+            option.textContent = pais.nome;
+            select.appendChild(option);
+        });
+        select.onchange = () => preencherEstados(select);
+    });
+}
+
+// Preenche os estados conforme o país selecionado
+function preencherEstados(paisSelect) {
+    const addressDiv = paisSelect.closest('.row').parentElement.parentElement;
+    const estadoSelect = addressDiv.querySelector('select[id^="estado-"]');
+    const cidadeSelect = addressDiv.querySelector('select[id^="cidade-"]');
+    estadoSelect.length = 1;
+    cidadeSelect.length = 1;
+    const pais = dados.paises.find(p => p.id == paisSelect.value);
+    if (pais && pais.estados) {
+        pais.estados.forEach(estado => {
+            const option = document.createElement("option");
+            option.value = estado.id;
+            option.textContent = estado.nome;
+            estadoSelect.appendChild(option);
+        });
+        estadoSelect.onchange = () => preencherCidades(estadoSelect, pais);
+    }
+}
+
+// Preenche as cidades conforme o estado selecionado
+function preencherCidades(estadoSelect, pais) {
+    const addressDiv = estadoSelect.closest('.row').parentElement.parentElement;
+    const cidadeSelect = addressDiv.querySelector('select[id^="cidade-"]');
+    cidadeSelect.length = 1;
+    const estado = pais.estados.find(e => e.id == estadoSelect.value);
+    if (estado && estado.cidades) {
+        estado.cidades.forEach(cidade => {
+            const option = document.createElement("option");
+            option.value = cidade.id;
+            option.textContent = cidade.nome;
+            cidadeSelect.appendChild(option);
+        });
+    }
+}
+
+// Sempre que um novo endereço for adicionado, chame preencherTodosSelectsPais()
 document.addEventListener("DOMContentLoaded", () => {
-    const paisSelect = document.getElementById("pais");
-    const estadoSelect = document.getElementById("estado");
-    const cidadeSelect = document.getElementById("cidade");
-    let dados;
-
-    // Função para carregar os dados do JSON
-    async function carregarDadosPaises() {
-        try {
-            const response = await fetch("/dados.json");
-            if (!response.ok) throw new Error("Erro ao carregar os dados");
-            dados = await response.json();
-
-            // Preencher países no select
-            dados.paises.forEach(pais => {
-                const option = document.createElement("option");
-                option.value = pais.id;
-                option.textContent = pais.nome;
-                paisSelect.appendChild(option);
-            });
-            console.log("Opções de países adicionadas ao select:", paisSelect.innerHTML);
-        } catch (error) {
-            console.error("Erro ao carregar os dados:", error);
-            alert("Não foi possível carregar os dados. Tente novamente mais tarde.");
-        }
-    }
     carregarDadosPaises();
-    console.log("Select de países encontrado:", paisSelect);
 
-     async function carregarDadosPaises() {
-        try {
-            const response = await fetch("/dados.json");
-            if (!response.ok) throw new Error("Erro ao carregar os dados");
-            dados = await response.json();
-
-            // Preencher países no select
-            dados.paises.forEach(pais => {
-                const option = document.createElement("option");
-                option.value = pais.id;
-                option.textContent = pais.nome;
-                paisSelect.appendChild(option);
-            });
-
-            const paisId = paisSelect.value;
-            estadoSelect.disabled = false;
-            if (paisId) {
-            const pais = dados?.paises?.find(p => p.id == paisId);
-            if (pais && pais.estados) {
-                pais.estados.forEach(estado => {
-                    const option = document.createElement("option");
-                    option.value = estado.id;
-                    option.textContent = estado.nome;
-                    estadoSelect.appendChild(option);
-                });
-                
-            }
-        }
-            console.log("Opções de países adicionadas ao select:", paisSelect.innerHTML);
-        } catch (error) {
-            console.error("Erro ao carregar os dados:", error);
-            alert("Não foi possível carregar os dados. Tente novamente mais tarde.");
-        }
-    }
-
-    // Evento para atualizar estados com base no país selecionado
-    // paisSelect.addEventListener("change", () => {
-    //     const paisId = paisSelect.value;
-    //     estadoSelect.disabled = false;
-    //     if (paisId) {
-    //         const pais = dados?.paises?.find(p => p.id == paisId);
-    //         if (pais && pais.estados) {
-    //             pais.estados.forEach(estado => {
-    //                 const option = document.createElement("option");
-    //                 option.value = estado.id;
-    //                 option.textContent = estado.nome;
-    //                 estadoSelect.appendChild(option);
-    //             });
-                
-    //         }
-    //     }
-    // });
+    // Observa adição de novos endereços para atualizar selects
+    const addressContainer = document.getElementById("address-container");
+    const observer = new MutationObserver(() => preencherTodosSelectsPais());
+    observer.observe(addressContainer, { childList: true });
 
     // Evento para envio do formulário
     const form = document.querySelector("form");
@@ -382,7 +375,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    // Carregar dados ao iniciar
-    
 });
