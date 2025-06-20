@@ -1,5 +1,7 @@
 package com.eng.soft.TrabalhoFinal.DTOs;
 
+import java.util.List;
+
 
 public record DadosCadastroUsuario(
     String nome,
@@ -8,6 +10,9 @@ public record DadosCadastroUsuario(
     String email,
     String tipoDeTelefone,
     String telefone,
-    String senha
-) {
-}
+    String senha,
+    String confirmacaoSenha,
+    List<EnderecoDTO> enderecos,
+    List<CartoesDTO> cartoesDeCredito
+
+) {}

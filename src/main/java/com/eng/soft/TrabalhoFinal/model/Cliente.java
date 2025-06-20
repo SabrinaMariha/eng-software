@@ -1,21 +1,12 @@
 package com.eng.soft.TrabalhoFinal.model;
 
+import com.eng.soft.TrabalhoFinal.DTOs.CartoesDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.DadosCadastroUsuario;
+import com.eng.soft.TrabalhoFinal.DTOs.EnderecoDTO;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/*
-* Nome
-Data de Nascimento
-CPF
-Email
-Tipo de Telefone
-Telefone
-Senha
-Endereço
-Cartão de Credito
-*
-*
-* */
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -23,8 +14,6 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    //private List<CartaoDeCredito> cartoesDeCredito;
     private String nome;
     private String dataDeNascimento;
     private String cpf;
@@ -33,7 +22,16 @@ public class Cliente {
     private String telefone;
     private String senha;
 
-     public Cliente(DadosCadastroUsuario clienteDados) {
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CartaoDeCredito> cartoesDeCredito = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Endereco> enderecos = new ArrayList<>();
+
+    public Cliente() {}
+
+    public Cliente(DadosCadastroUsuario clienteDados) {
+        this();
         this.nome = clienteDados.nome();
         this.dataDeNascimento = clienteDados.dataDeNascimento();
         this.cpf = clienteDados.cpf();
@@ -41,32 +39,52 @@ public class Cliente {
         this.tipoDeTelefone = clienteDados.tipoDeTelefone();
         this.telefone = clienteDados.telefone();
         this.senha = clienteDados.senha();
+        for (EnderecoDTO enderecoDTO : clienteDados.enderecos()) {
+            Endereco endereco = new Endereco(
+                    enderecoDTO.nomeCidade(),
+                    enderecoDTO.nomeEstado(),
+                    enderecoDTO.nomePais(),
+                    enderecoDTO.tipoDeResidencia(),
+                    enderecoDTO.tipoDeLogradouro(),
+                    enderecoDTO.logradouro(),
+                    enderecoDTO.numero(),
+                    enderecoDTO.complemento(),
+                    enderecoDTO.bairro(),
+                    enderecoDTO.cep(),
+                    enderecoDTO.cobranca(),
+                    enderecoDTO.observacoes()
+            );
+            this.enderecos.add(endereco);
+        }
+        for (CartoesDTO cartaoDTO : clienteDados.cartoesDeCredito()) {
+            CartaoDeCredito cartao = new CartaoDeCredito(
+                    cartaoDTO.numero(),
+                    cartaoDTO.nomeTitular(),
+                    cartaoDTO.validade(),
+                    cartaoDTO.cvv()
+            );
+            this.cartoesDeCredito.add(cartao);
+        }
     }
 
-    public Cliente() {
+    // getters e setters...
 
-    }
-
-    // @Embedded
-   // private Endereco endereco;
-    //@ElementCollection
-   // @CollectionTable(name = "cartoes_de_credito", joinColumns = @JoinColumn(name = "cliente_id"))
 
     public Long getId() {
         return id;
     }
-//    public Endereco getEndereco() {
-//        return endereco;
-//    }
-//    public void setEndereco(Endereco endereco) {
-//        this.endereco = endereco;
-//    }
-//    public List<CartaoDeCredito> getCartoesDeCredito() {
-//        return cartoesDeCredito;
-//    }
-//    public void setCartoesDeCredito(List<CartaoDeCredito> cartoesDeCredito) {
-//        this.cartoesDeCredito = cartoesDeCredito;
-//    }
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+    public List<CartaoDeCredito> getCartoesDeCredito() {
+        return cartoesDeCredito;
+    }
+    public void setCartoesDeCredito(List<CartaoDeCredito> cartoesDeCredito) {
+        this.cartoesDeCredito = cartoesDeCredito;
+    }
     public String getNome() {
         return nome;
     }
