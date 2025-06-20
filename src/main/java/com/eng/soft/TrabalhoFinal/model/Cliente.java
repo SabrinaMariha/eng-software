@@ -1,9 +1,8 @@
-package com.eng.soft.TrabalhoFinal.entities;
+package com.eng.soft.TrabalhoFinal.model;
 
 import com.eng.soft.TrabalhoFinal.DTOs.DadosCadastroUsuario;
 import jakarta.persistence.*;
 
-import java.util.List;
 /*
 * Nome
 Data de Nascimento

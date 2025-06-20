@@ -1,6 +1,6 @@
 package com.eng.soft.TrabalhoFinal.DAO;
 
-import com.eng.soft.TrabalhoFinal.entities.Cliente;
+import com.eng.soft.TrabalhoFinal.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

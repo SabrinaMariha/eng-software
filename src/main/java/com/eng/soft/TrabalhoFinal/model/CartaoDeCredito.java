@@ -1,4 +1,4 @@
-package com.eng.soft.TrabalhoFinal.entities;
+package com.eng.soft.TrabalhoFinal.model;
 
 import jakarta.persistence.Embeddable;
 

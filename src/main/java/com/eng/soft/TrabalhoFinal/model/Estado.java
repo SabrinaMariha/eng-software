@@ -1,9 +1,9 @@
-package com.eng.soft.TrabalhoFinal.entities;
+package com.eng.soft.TrabalhoFinal.model;
 
 import jakarta.persistence.*;
 
 @Entity
-public class Cidade {
+public class Estado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -11,9 +11,8 @@ public class Cidade {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name = "estado_id")
-    private Estado estado;
+    @JoinColumn(name = "pais_id")
+    private Pais pais;
 
     // Getters e Setters
 }
-
