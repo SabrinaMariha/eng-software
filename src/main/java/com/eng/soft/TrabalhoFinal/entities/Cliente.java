@@ -1,5 +1,6 @@
 package com.eng.soft.TrabalhoFinal.entities;
 
+import com.eng.soft.TrabalhoFinal.DTOs.DadosCadastroUsuario;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,6 +14,8 @@ Telefone
 Senha
 Endereço
 Cartão de Credito
+*
+*
 * */
 @Entity
 @Table(name = "cliente")
@@ -22,7 +25,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private List<CartaoDeCredito> cartoesDeCredito;
+    //private List<CartaoDeCredito> cartoesDeCredito;
     private String nome;
     private String dataDeNascimento;
     private String cpf;
@@ -31,26 +34,40 @@ public class Cliente {
     private String telefone;
     private String senha;
 
-    @Embedded
-    private Endereco endereco;
-    @ElementCollection
-    @CollectionTable(name = "cartoes_de_credito", joinColumns = @JoinColumn(name = "cliente_id"))
+     public Cliente(DadosCadastroUsuario clienteDados) {
+        this.nome = clienteDados.nome();
+        this.dataDeNascimento = clienteDados.dataDeNascimento();
+        this.cpf = clienteDados.cpf();
+        this.email = clienteDados.email();
+        this.tipoDeTelefone = clienteDados.tipoDeTelefone();
+        this.telefone = clienteDados.telefone();
+        this.senha = clienteDados.senha();
+    }
+
+    public Cliente() {
+
+    }
+
+    // @Embedded
+   // private Endereco endereco;
+    //@ElementCollection
+   // @CollectionTable(name = "cartoes_de_credito", joinColumns = @JoinColumn(name = "cliente_id"))
 
     public Long getId() {
         return id;
     }
-    public Endereco getEndereco() {
-        return endereco;
-    }
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-    public List<CartaoDeCredito> getCartoesDeCredito() {
-        return cartoesDeCredito;
-    }
-    public void setCartoesDeCredito(List<CartaoDeCredito> cartoesDeCredito) {
-        this.cartoesDeCredito = cartoesDeCredito;
-    }
+//    public Endereco getEndereco() {
+//        return endereco;
+//    }
+//    public void setEndereco(Endereco endereco) {
+//        this.endereco = endereco;
+//    }
+//    public List<CartaoDeCredito> getCartoesDeCredito() {
+//        return cartoesDeCredito;
+//    }
+//    public void setCartoesDeCredito(List<CartaoDeCredito> cartoesDeCredito) {
+//        this.cartoesDeCredito = cartoesDeCredito;
+//    }
     public String getNome() {
         return nome;
     }
@@ -97,8 +114,8 @@ public class Cliente {
     public String toString() {
         return "Cliente{" +
                 "id=" + id +
-                ", endereco=" + endereco +
-                ", cartoesDeCredito=" + cartoesDeCredito +
+                //", endereco=" + endereco +
+               // ", cartoesDeCredito=" + cartoesDeCredito +
                 ", nome='" + nome + '\'' +
                 ", dataDeNascimento='" + dataDeNascimento + '\'' +
                 ", cpf='" + cpf + '\'' +
