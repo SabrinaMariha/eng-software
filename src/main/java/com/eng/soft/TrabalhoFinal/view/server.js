@@ -23,6 +23,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index", "CadastroClientes.html"));
 });
 
+app.get("/consulta", (req, res) => {
+  res.sendFile(path.join(__dirname, "index", "ConsultaClientes.html"));
+});
+
 // Exemplo básico de recebimento do POST (cadastro)
 app.post("/", (req, res) => {
   const cliente = req.body;
