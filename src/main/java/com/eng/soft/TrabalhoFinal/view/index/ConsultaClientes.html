@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../styles/style.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Clientes</title>
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <h1>Consulta de Clientes</h1>
+        <nav>
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a href="./CadastroClientes.html" class="nav-link text-white">Cadastro de Clientes</a></li>
+                <li class="nav-item"><a href="./ConsultaClientes.html" class="nav-link active text-white">Consulta de Clientes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <h2 class="mb-4">Consultar</h2>
+        <form class="row g-3">
+            <div class="col-md-4">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Digite o nome">
+            </div>
+            <div class="col-md-4">
+                <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="dataNascimento">
+            </div>
+            <div class="col-md-4">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf" placeholder="Digite o CPF">
+            </div>
+            <div class="col-md-4">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="telefone" placeholder="Digite o telefone">
+            </div>
+            <div class="col-md-4">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="Digite o e-mail">
+            </div>
+            <div class="col-md-4 align-self-end">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+        </form>
+
+        <h2 class="mt-5">Resultados</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Data de Nascimento</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>João Silva</td>
+                    <td>01/01/1980</td>
+                    <td>123.456.789-00</td>
+                    <td>(11) 99999-9999</td>
+                    <td>joao@email.com</td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCliente">🔍</button></td>
+                </tr>
+                <tr>
+                    <td>Maria Oliveira</td>
+                    <td>15/05/1995</td>
+                    <td>987.654.321-00</td>
+                    <td>(21) 88888-8888</td>
+                    <td>maria@email.com</td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCliente">🔍</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer class="bg-primary text-white text-center py-3">
+        <p>&copy; 2025 Trabalho Engenharia de Software III. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="modalClienteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalClienteLabel">Detalhes do Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nome:</strong> João Silva</p>
+                    <p><strong>Data de Nascimento:</strong> 01/01/1980</p>
+                    <p><strong>CPF:</strong> 123.456.789-00</p>
+                    <p><strong>Telefone:</strong> (11) 99999-9999</p>
+                    <p><strong>E-mail:</strong> joao@email.com</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
