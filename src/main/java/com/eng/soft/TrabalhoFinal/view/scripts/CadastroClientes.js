@@ -64,8 +64,8 @@ function preencherCidades(estadoSelect, pais) {
 }
 
 // Sempre que um novo endereço for adicionado, chame preencherTodosSelectsPais()
-document.addEventListener("DOMContentLoaded", async () => {
-    await carregarDadosPaises();
+document.addEventListener("DOMContentLoaded", () => {
+    carregarDadosPaises();
     addAddress();
     addCard();
 
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (form) {
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
-
+//
             const cliente = {
                 nome: document.getElementById("nome").value.trim(),
                 dataDeNascimento: document.getElementById("data-nascimento").value.trim(),
@@ -89,31 +89,31 @@ document.addEventListener("DOMContentLoaded", async () => {
                 telefone: document.getElementById("telefone").value.trim(),
                 senha: document.getElementById("senha").value.trim(),
                 confirmacaoSenha: document.getElementById("confirmacao-senha").value.trim(),
-                enderecos: Array.from(document.querySelectorAll('.endereco-frame')).map(frame => {
-                    const paisId = frame.querySelector('select[id^="pais-"]').value;
-                    const estadoId = frame.querySelector('select[id^="estado-"]').value;
-                    const cidadeId = frame.querySelector('select[id^="cidade-"]').value;
+                 enderecos: Array.from(document.querySelectorAll('.endereco-frame')).map(frame => {
+                                    const paisId = frame.querySelector('select[id^="pais-"]').value;
+                                    const estadoId = frame.querySelector('select[id^="estado-"]').value;
+                                    const cidadeId = frame.querySelector('select[id^="cidade-"]').value;
 
-                    const pais = dados.paises.find(p => p.id == paisId);
-                    const estado = pais?.estados.find(e => e.id == estadoId);
-                    const cidade = estado?.cidades.find(c => c.id == cidadeId);
+                                    const pais = dados.paises.find(p => p.id == paisId);
+                                    const estado = pais?.estados.find(e => e.id == estadoId);
+                                    const cidade = estado?.cidades.find(c => c.id == cidadeId);
 
-                    return {
-                        nomePais: pais?.nome || "",
-                        nomeEstado: estado?.nome || "",
-                        nomeCidade: cidade?.nome || "",
-                        tipoDeResidencia: frame.querySelector('select[name="tipo-residencia"]').value,
-                        tipoDeLogradouro: frame.querySelector('select[name="tipo-logradouro"]').value,
-                        logradouro: frame.querySelector('input[name="logradouro"]').value.trim(),
-                        numero: frame.querySelector('input[name="numero"]').value.trim(),
-                        bairro: frame.querySelector('input[name="bairro"]').value.trim(),
-                        complemento: frame.querySelector('input[name="complemento"]').value.trim(),
-                        cep: frame.querySelector('input[name="cep"]').value.trim(),
-                        cobranca: frame.querySelector('input[type="radio"][name="endereco-cobranca"]').checked,
-                        tipoDeEndereco: frame.querySelector('select[name="tipo-endereco"]').value,
-                        observacoes: frame.querySelector('textarea[name="observacoes"]').value.trim()
-                    };
-                }),
+                                    return {
+                                        nomePais: pais?.nome || "",
+                                        nomeEstado: estado?.nome || "",
+                                        nomeCidade: cidade?.nome || "",
+                                        tipoDeResidencia: frame.querySelector('select[name="tipo-residencia"]').value,
+                                        tipoDeLogradouro: frame.querySelector('select[name="tipo-logradouro"]').value,
+                                        logradouro: frame.querySelector('input[name="logradouro"]').value.trim(),
+                                        numero: frame.querySelector('input[name="numero"]').value.trim(),
+                                        bairro: frame.querySelector('input[name="bairro"]').value.trim(),
+                                        complemento: frame.querySelector('input[name="complemento"]').value.trim(),
+                                        cep: frame.querySelector('input[name="cep"]').value.trim(),
+                                        cobranca: frame.querySelector('input[type="radio"][name="endereco-cobranca"]').checked,
+                                        tipoDeEndereco: frame.querySelector('select[name="tipo-endereco"]').value,
+                                        observacoes: frame.querySelector('textarea[name="observacoes"]').value.trim()
+                                    };
+                                }),
                 cartoesDeCredito: Array.from(document.querySelectorAll('.cartao-frame')).map(frame => ({
                     numero: frame.querySelector('input[name="numero-cartao"]').value.trim(),
                     bandeira: frame.querySelector('select[name="bandeira"]').value,
