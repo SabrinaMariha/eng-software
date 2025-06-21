@@ -9,19 +9,26 @@ public class CartaoDeCredito {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String numero;
+    private String bandeira;
     private String nomeTitular;
     private String validade;
     private String cvv;
 
     public CartaoDeCredito() {}
 
-    public CartaoDeCredito(String numero, String nomeTitular, String validade, String cvv) {
+    public CartaoDeCredito(String bandeira, String numero, String nomeTitular, String validade, String cvv) {
         this.numero = numero;
+        this.bandeira = bandeira;
         this.nomeTitular = nomeTitular;
         this.validade = validade;
         this.cvv = cvv;
     }
 
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getBandeira() { return bandeira; }
+    public void setBandeira(String bandeira) { this.bandeira = bandeira; }
     public String getNumero() { return numero; }
     public void setNumero(String numero) { this.numero = numero; }
     public String getNomeTitular() { return nomeTitular; }

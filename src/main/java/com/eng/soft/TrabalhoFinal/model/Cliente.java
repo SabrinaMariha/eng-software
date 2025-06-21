@@ -41,6 +41,7 @@ public class Cliente {
         this.senha = clienteDados.senha();
         for (EnderecoDTO enderecoDTO : clienteDados.enderecos()) {
             Endereco endereco = new Endereco(
+                    enderecoDTO.tipoDeResidencia(),
                     enderecoDTO.nomeCidade(),
                     enderecoDTO.nomeEstado(),
                     enderecoDTO.nomePais(),
@@ -59,6 +60,7 @@ public class Cliente {
         for (CartoesDTO cartaoDTO : clienteDados.cartoesDeCredito()) {
             CartaoDeCredito cartao = new CartaoDeCredito(
                     cartaoDTO.numero(),
+                    cartaoDTO.bandeira(),
                     cartaoDTO.nomeTitular(),
                     cartaoDTO.validade(),
                     cartaoDTO.cvv()

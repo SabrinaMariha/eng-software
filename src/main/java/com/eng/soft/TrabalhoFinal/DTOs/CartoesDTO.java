@@ -37,6 +37,7 @@ CadastroClientes.js:119 {
 */
 public record CartoesDTO(
     String numero,
+    String bandeira,
     String nomeTitular,
     String validade,
     String cvv

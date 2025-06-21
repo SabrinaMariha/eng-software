@@ -18,12 +18,14 @@ public class Endereco {
     private String complemento;
     private String bairro;
     private String cep;
+    private String tipoDeEndereco;
     private boolean cobranca;
     private String observacoes;
 
     public Endereco() {}
 
-    public Endereco(String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep, boolean cobranca, String observacoes) {
+    public Endereco(String tipoDeEndereco, String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep, boolean cobranca, String observacoes) {
+        this.tipoDeEndereco = tipoDeEndereco;
         this.tipoDeResidencia = tipoDeResidencia;
         this.tipoDeLogradouro = tipoDeLogradouro;
         this.logradouro = logradouro;
@@ -40,6 +42,15 @@ public class Endereco {
     }
 
     // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+    public String getTipoDeEndereco() {
+        return tipoDeEndereco;
+    }
+    public void setTipoDeEndereco(String tipoDeEndereco) {
+        this.tipoDeEndereco = tipoDeEndereco;
+    }
     public String getNomeCidade() {
         return nomeCidade;
     }
