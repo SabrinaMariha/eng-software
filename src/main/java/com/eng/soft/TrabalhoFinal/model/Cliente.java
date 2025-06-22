@@ -1,7 +1,7 @@
 package com.eng.soft.TrabalhoFinal.model;
 
 import com.eng.soft.TrabalhoFinal.DTOs.CartoesDTO;
-import com.eng.soft.TrabalhoFinal.DTOs.DadosCadastroUsuario;
+import com.eng.soft.TrabalhoFinal.DTOs.CadastroUsuarioDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.EnderecoDTO;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -26,11 +26,12 @@ public class Cliente {
     private List<CartaoDeCredito> cartoesDeCredito = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
     private List<Endereco> enderecos = new ArrayList<>();
 
     public Cliente() {}
 
-    public Cliente(DadosCadastroUsuario clienteDados) {
+    public Cliente(CadastroUsuarioDTO clienteDados) {
         this();
         this.nome = clienteDados.nome();
         this.dataDeNascimento = clienteDados.dataDeNascimento();
@@ -129,6 +130,9 @@ public class Cliente {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    public void addEndereco(Endereco endereco) {
+        this.enderecos.add(endereco);
+    }
     @Override
     public String toString() {
         return "Cliente{" +
@@ -143,5 +147,9 @@ public class Cliente {
                 ", telefone='" + telefone + '\'' +
                 ", senha='" + senha + '\'' +
                 '}';
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -3,7 +3,7 @@ package com.eng.soft.TrabalhoFinal.DTOs;
 import java.util.List;
 
 
-public record DadosCadastroUsuario(
+public record CadastroUsuarioDTO(
     String nome,
     String dataDeNascimento,
     String cpf,

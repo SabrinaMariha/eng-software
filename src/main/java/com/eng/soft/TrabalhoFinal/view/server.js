@@ -12,6 +12,10 @@ app.use("/scripts", express.static(path.join(__dirname, "scripts")));
 app.use("/styles", express.static(path.join(__dirname, "styles")));
 // Servir toda a pasta index (html e json)
 app.use("/index", express.static(path.join(__dirname, "index")));
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store');
+    next();
+});
 
 // Rota para dados.json (arquivo específico)
 app.get("/dados.json", (req, res) => {

@@ -14,6 +14,10 @@ public class CartaoDeCredito {
     private String validade;
     private String cvv;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
+
     public CartaoDeCredito() {}
 
     public CartaoDeCredito(String bandeira, String numero, String nomeTitular, String validade, String cvv) {

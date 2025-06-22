@@ -13,8 +13,8 @@
     <h1>Consulta de Clientes</h1>
     <nav>
         <ul class="nav justify-content-center">
-            <li class="nav-item"><a href="./CadastroClientes.html" class="nav-link text-white">Cadastro de Clientes</a></li>
-            <li class="nav-item"><a href="./ConsultaClientes.html" class="nav-link active text-white">Consulta de Clientes</a></li>
+            <li class="nav-item"><a href="http://localhost:3000/" class="nav-link text-white">Cadastro de Clientes</a></li>
+            <li class="nav-item"><a href="http://localhost:3000/consulta" class="nav-link active text-white">Consulta de Clientes</a></li>
         </ul>
     </nav>
 </header>
@@ -60,28 +60,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>João Silva</td>
-            <td>01/01/1980</td>
-            <td>123.456.789-00</td>
-            <td>(11) 99999-9999</td>
-            <td>joao@email.com</td>
-            <td>
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCliente">🔍</button>
-                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.location.href='http://localhost:3000/edit-cliente'">✏️</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Maria Oliveira</td>
-            <td>15/05/1995</td>
-            <td>987.654.321-00</td>
-            <td>(21) 88888-8888</td>
-            <td>maria@email.com</td>
-            <td>
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCliente">🔍</button>
-                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="window.location.href='http://localhost:3000/edit-cliente'">✏️</button>
-            </td>
-        </tr>
+        <!-- Os resultados serão renderizados aqui -->
         </tbody>
     </table>
 </main>
@@ -90,26 +69,8 @@
     <p>&copy; 2025 Trabalho Engenharia de Software III. Todos os direitos reservados.</p>
 </footer>
 
-<!-- Modal -->
-<div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="modalClienteLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalClienteLabel">Detalhes do Cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Nome:</strong> João Silva</p>
-                <p><strong>Data de Nascimento:</strong> 01/01/1980</p>
-                <p><strong>CPF:</strong> 123.456.789-00</p>
-                <p><strong>Telefone:</strong> (11) 99999-9999</p>
-                <p><strong>E-mail:</strong> joao@email.com</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Inclua o JavaScript aqui -->
+<script src="/scripts/ConsultaClientes.js" defer></script>
+
 </body>
 </html>

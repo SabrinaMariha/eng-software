@@ -8,6 +8,11 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
+
     private String nomeCidade;
     private String nomeEstado;
     private String nomePais;
@@ -136,4 +141,6 @@ public class Endereco {
     }
 
 
+    public void setId(long aLong) {
+    }
 }
