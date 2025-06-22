@@ -4,10 +4,13 @@ package com.eng.soft.TrabalhoFinal.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "cartao_de_credito")
 public class CartaoDeCredito {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String numero;
     private String bandeira;
     private String nomeTitular;
@@ -17,7 +20,6 @@ public class CartaoDeCredito {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
-
     public CartaoDeCredito() {}
 
     public CartaoDeCredito(String bandeira, String numero, String nomeTitular, String validade, String cvv) {

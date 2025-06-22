@@ -30,6 +30,10 @@ app.get("/", (req, res) => {
 app.get("/consulta", (req, res) => {
   res.sendFile(path.join(__dirname, "index", "ConsultaClientes.html"));
 });
+// http://localhost:8080/editar?id=${clienteId}
+app.get("/editar", (req, res) => {
+  res.sendFile(path.join(__dirname, "index", "EdicaoClientes.html"));
+});
 
 // Exemplo básico de recebimento do POST (cadastro)
 app.post("/", (req, res) => {

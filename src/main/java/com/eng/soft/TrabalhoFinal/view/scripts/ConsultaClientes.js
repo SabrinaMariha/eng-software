@@ -48,8 +48,9 @@ function renderizarResultados(resultados) {
 
     resultados.forEach((cliente) => {
         const row = document.createElement("tr");
-
+        row.setAttribute("data-id", cliente.id || "N/A"); // Adiciona o ID do cliente como atributo data-id
         row.innerHTML = `
+
             <td>${cliente.nome || "N/A"}</td>
             <td>${cliente.dataDeNascimento || "N/A"}</td>
             <td>${cliente.cpf || "N/A"}</td>
@@ -64,3 +65,18 @@ function renderizarResultados(resultados) {
         tabela.appendChild(row);
     });
 }
+//ao clicar no button ✏️ pegar o id do cliente e redirecionar para a página de edição
+document.querySelector("table tbody").addEventListener("click", (event) => {
+    if (event.target.tagName === "BUTTON") {
+        const row = event.target.closest("tr");
+        const clienteId = row.getAttribute("data-id");
+
+        if (event.target.textContent.includes("✏️")) {
+            // Redireciona para a página de edição do cliente
+            window.location.href = `http://localhost:8080/editar?id=${clienteId}`;
+        } else if (event.target.textContent.includes("🔍")) {
+            // Aqui você pode implementar a lógica para visualizar detalhes do cliente
+            console.log(`Visualizar detalhes do cliente com ID: ${clienteId}`);
+        }
+    }
+});

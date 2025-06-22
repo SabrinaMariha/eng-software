@@ -22,12 +22,12 @@ public class Cliente {
     private String telefone;
     private String senha;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<CartaoDeCredito> cartoesDeCredito = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_id")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Endereco> enderecos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<CartaoDeCredito> cartoesDeCredito = new ArrayList<>();
 
     public Cliente() {}
 
@@ -130,9 +130,7 @@ public class Cliente {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    public void addEndereco(Endereco endereco) {
-        this.enderecos.add(endereco);
-    }
+
     @Override
     public String toString() {
         return "Cliente{" +

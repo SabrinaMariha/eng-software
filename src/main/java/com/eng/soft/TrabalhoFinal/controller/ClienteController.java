@@ -2,12 +2,14 @@ package com.eng.soft.TrabalhoFinal.controller;
 
 import com.eng.soft.TrabalhoFinal.DAO.ClienteDAO;
 import com.eng.soft.TrabalhoFinal.DTOs.CadastroUsuarioDTO;
+import com.eng.soft.TrabalhoFinal.DTOs.ClienteDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.ConsultaClientesDTO;
 import com.eng.soft.TrabalhoFinal.model.Cliente;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +51,24 @@ public class ClienteController {
         }
 
         return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping("/editar")
+    public ResponseEntity<ClienteDTO> editarCliente(@RequestParam Long id) throws SQLException {
+        Cliente cliente = clienteDAO.findById(id);
+
+        // Map Cliente to ClienteDTO
+        ClienteDTO clienteDTO = new ClienteDTO();
+        clienteDTO.setNome(cliente.getNome());
+        clienteDTO.setDataDeNascimento(cliente.getDataDeNascimento());
+        clienteDTO.setCpf(cliente.getCpf());
+        clienteDTO.setEmail(cliente.getEmail());
+        clienteDTO.setTipoDeTelefone(cliente.getTipoDeTelefone());
+        clienteDTO.setTelefone(cliente.getTelefone());
+        clienteDTO.setEnderecos(cliente.getEnderecos());
+        clienteDTO.setCartoesDeCredito(cliente.getCartoesDeCredito());
+
+        return ResponseEntity.ok(clienteDTO);
     }
 
 }

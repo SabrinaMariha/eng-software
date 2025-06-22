@@ -13,6 +13,7 @@ public class Endereco {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
+
     private String nomeCidade;
     private String nomeEstado;
     private String nomePais;
