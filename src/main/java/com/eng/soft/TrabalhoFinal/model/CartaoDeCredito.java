@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cartao_de_credito")
-public class CartaoDeCredito {
+public class CartaoDeCredito extends DomainEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,18 +16,29 @@ public class CartaoDeCredito {
     private String nomeTitular;
     private String validade;
     private String cvv;
+    private Boolean preferencial = false;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
     public CartaoDeCredito() {}
 
-    public CartaoDeCredito(String bandeira, String numero, String nomeTitular, String validade, String cvv) {
+    public CartaoDeCredito(String bandeira, String numero, String nomeTitular, String validade, String cvv, Boolean preferencial) {
         this.numero = numero;
         this.bandeira = bandeira;
         this.nomeTitular = nomeTitular;
         this.validade = validade;
         this.cvv = cvv;
+        this.preferencial = preferencial;
+    }
+    public CartaoDeCredito(Long id, String bandeira, String numero, String nomeTitular, String validade, String cvv, Boolean preferencial) {
+        this.id = id;
+        this.numero = numero;
+        this.bandeira = bandeira;
+        this.nomeTitular = nomeTitular;
+        this.validade = validade;
+        this.cvv = cvv;
+        this.preferencial = preferencial;
     }
 
     // Getters and Setters
@@ -43,4 +54,15 @@ public class CartaoDeCredito {
     public void setValidade(String validade) { this.validade = validade; }
     public String getCvv() { return cvv; }
     public void setCvv(String cvv) { this.cvv = cvv; }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Boolean getPreferencial() {
+        return preferencial;
+    }
+    public void setPreferencial(Boolean preferencial) {
+        this.preferencial = preferencial;
+    }
 }

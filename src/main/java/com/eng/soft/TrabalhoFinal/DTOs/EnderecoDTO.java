@@ -45,17 +45,18 @@ CadastroClientes.js:119 {
 */
 // EnderecoDTO.java
 public record EnderecoDTO (
+    Long id,
     String nomeCidade,
     String nomeEstado,
     String nomePais,
     String tipoDeResidencia,
     String tipoDeLogradouro,
+    String tipoDeEndereco,
     String logradouro,
     String numero,
     String complemento,
     String bairro,
     String cep,
-    boolean cobranca,
     String observacoes
 ){
 

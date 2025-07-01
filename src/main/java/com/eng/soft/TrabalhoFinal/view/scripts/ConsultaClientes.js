@@ -72,10 +72,8 @@ document.querySelector("table tbody").addEventListener("click", (event) => {
         const clienteId = row.getAttribute("data-id");
 
         if (event.target.textContent.includes("✏️")) {
-            // Redireciona para a página de edição do cliente
-            window.location.href = `http://localhost:8080/editar?id=${clienteId}`;
+             window.location.href = `http://localhost:3000/editar?id=${clienteId}`;
         } else if (event.target.textContent.includes("🔍")) {
-            // Aqui você pode implementar a lógica para visualizar detalhes do cliente
             console.log(`Visualizar detalhes do cliente com ID: ${clienteId}`);
         }
     }

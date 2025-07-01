@@ -9,13 +9,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente extends DomainEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String dataDeNascimento;
+    private String genero;
     private String cpf;
     private String email;
     private String tipoDeTelefone;
@@ -35,14 +36,16 @@ public class Cliente {
         this();
         this.nome = clienteDados.nome();
         this.dataDeNascimento = clienteDados.dataDeNascimento();
+        this.genero = clienteDados.genero();
         this.cpf = clienteDados.cpf();
         this.email = clienteDados.email();
         this.tipoDeTelefone = clienteDados.tipoDeTelefone();
         this.telefone = clienteDados.telefone();
         this.senha = clienteDados.senha();
         for (EnderecoDTO enderecoDTO : clienteDados.enderecos()) {
-            Endereco endereco = new Endereco(
-                    enderecoDTO.tipoDeResidencia(),
+            Endereco endereco;
+            if (enderecoDTO == null) {
+                    endereco = new Endereco(
                     enderecoDTO.nomeCidade(),
                     enderecoDTO.nomeEstado(),
                     enderecoDTO.nomePais(),
@@ -53,22 +56,54 @@ public class Cliente {
                     enderecoDTO.complemento(),
                     enderecoDTO.bairro(),
                     enderecoDTO.cep(),
-                    enderecoDTO.cobranca(),
+                    enderecoDTO.tipoDeEndereco(),
                     enderecoDTO.observacoes()
             );
+            } else {
+                        endereco = new Endereco(
+                        enderecoDTO.id(),
+                        enderecoDTO.nomeCidade(),
+                        enderecoDTO.nomeEstado(),
+                        enderecoDTO.nomePais(),
+                        enderecoDTO.tipoDeResidencia(),
+                        enderecoDTO.tipoDeLogradouro(),
+                        enderecoDTO.logradouro(),
+                        enderecoDTO.numero(),
+                        enderecoDTO.complemento(),
+                        enderecoDTO.bairro(),
+                        enderecoDTO.cep(),
+                        enderecoDTO.tipoDeEndereco(),
+                        enderecoDTO.observacoes()
+                );
+            }
             this.enderecos.add(endereco);
         }
         for (CartoesDTO cartaoDTO : clienteDados.cartoesDeCredito()) {
-            CartaoDeCredito cartao = new CartaoDeCredito(
+            CartaoDeCredito cartao;
+            if (cartaoDTO == null) {
+                    cartao = new CartaoDeCredito(
                     cartaoDTO.numero(),
                     cartaoDTO.bandeira(),
                     cartaoDTO.nomeTitular(),
                     cartaoDTO.validade(),
-                    cartaoDTO.cvv()
+                    cartaoDTO.cvv(),
+                    cartaoDTO.preferencial()
             );
+            } else {
+                cartao = new CartaoDeCredito(
+                        cartaoDTO.id(),
+                        cartaoDTO.numero(),
+                        cartaoDTO.bandeira(),
+                        cartaoDTO.nomeTitular(),
+                        cartaoDTO.validade(),
+                        cartaoDTO.cvv(),
+                        cartaoDTO.preferencial()
+                );
+            }
             this.cartoesDeCredito.add(cartao);
         }
     }
+
 
     // getters e setters...
 
@@ -149,5 +184,70 @@ public class Cliente {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void editar(CadastroUsuarioDTO clienteDados) {
+        this.nome = clienteDados.nome();
+        this.dataDeNascimento = clienteDados.dataDeNascimento();
+        this.cpf = clienteDados.cpf();
+        this.email = clienteDados.email();
+        this.tipoDeTelefone = clienteDados.tipoDeTelefone();
+        this.telefone = clienteDados.telefone();
+        this.senha = clienteDados.senha();
+
+        this.enderecos.clear();
+        for (EnderecoDTO enderecoDTO : clienteDados.enderecos()) {
+            Endereco endereco = enderecoDTO.id() == null
+                    ? new Endereco() // Novo endereço
+                    : this.enderecos.stream()
+                    .filter(e -> e.getId().equals(enderecoDTO.id()))
+                    .findFirst()
+                    .orElse(new Endereco()); // Atualizar existente ou criar novo
+
+            endereco.setNomeCidade(enderecoDTO.nomeCidade());
+            endereco.setNomeEstado(enderecoDTO.nomeEstado());
+            endereco.setNomePais(enderecoDTO.nomePais());
+            endereco.setTipoDeResidencia(enderecoDTO.tipoDeResidencia());
+            endereco.setTipoDeLogradouro(enderecoDTO.tipoDeLogradouro());
+            endereco.setLogradouro(enderecoDTO.logradouro());
+            endereco.setNumero(enderecoDTO.numero());
+            endereco.setComplemento(enderecoDTO.complemento());
+            endereco.setBairro(enderecoDTO.bairro());
+            endereco.setCep(enderecoDTO.cep());
+            endereco.setTipoDeEndereco(enderecoDTO.tipoDeEndereco());
+            endereco.setObservacoes(enderecoDTO.observacoes());
+            endereco.setCliente(this); // Vincula ao cliente
+
+            this.enderecos.add(endereco);
+        }
+
+
+        // Atualiza ou adiciona cartões de crédito
+        this.cartoesDeCredito.clear();
+        for (CartoesDTO cartaoDTO : clienteDados.cartoesDeCredito()) {
+            CartaoDeCredito cartao = cartaoDTO.id() == null
+                    ? new CartaoDeCredito() // Novo cartão
+                    : this.cartoesDeCredito.stream()
+                    .filter(c -> c.getId().equals(cartaoDTO.id()))
+                    .findFirst()
+                    .orElse(new CartaoDeCredito()); // Atualizar existente ou criar novo
+
+            cartao.setNumero(cartaoDTO.numero());
+            cartao.setBandeira(cartaoDTO.bandeira());
+            cartao.setNomeTitular(cartaoDTO.nomeTitular());
+            cartao.setValidade(cartaoDTO.validade());
+            cartao.setCvv(cartaoDTO.cvv());
+            cartao.setPreferencial(cartaoDTO.preferencial());
+            cartao.setCliente(this); // Vincula ao cliente
+
+            this.cartoesDeCredito.add(cartao);
+        }
+    }
+
+    public String getGenero() {
+    return genero;
+    }
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 }

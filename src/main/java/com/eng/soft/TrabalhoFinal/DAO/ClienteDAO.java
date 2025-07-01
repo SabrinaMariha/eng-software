@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ClienteDAO {
+public class ClienteDAO implements IDAO<Cliente> {
 
     private final DataSource dataSource;
 
@@ -28,12 +28,10 @@ public class ClienteDAO {
 
 
     @Transactional
-    public void salvar(Cliente cliente) {
-        String queryCliente = "INSERT INTO cliente (nome, data_de_nascimento, cpf, email, tipo_de_telefone, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        String queryEndereco = "INSERT INTO endereco (nome_pais, nome_estado, nome_cidade, tipo_de_residencia, tipo_de_logradouro, logradouro, numero, bairro, complemento, cep, cobranca, tipo_de_endereco, observacoes, cliente_id) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String queryClienteEndereco = "INSERT INTO cliente_enderecos (cliente_id, endereco_id) VALUES (?, ?)";
+    public void save(Cliente cliente) {
+        String queryCliente = "INSERT INTO cliente (nome, data_de_nascimento, genero, cpf, email, tipo_de_telefone, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String queryEndereco = "INSERT INTO endereco (nome_pais, nome_estado, nome_cidade, tipo_de_residencia, tipo_de_logradouro, logradouro, numero, bairro, complemento, cep,  tipo_de_endereco, observacoes, cliente_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String queryCartao = "INSERT INTO cartao_de_credito (numero, bandeira, nome_titular, validade, cvv, cliente_id) VALUES (?, ?, ?, ?, ?, ?)";
-        String queryClienteCartao = "INSERT INTO cliente_cartoes_de_credito (cliente_id, cartoes_de_credito_id) VALUES (?, ?)";
 
         try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
@@ -43,14 +41,12 @@ public class ClienteDAO {
 
 
             for (Endereco endereco : cliente.getEnderecos()) {
-                long enderecoId = saveEndereco(connection, queryEndereco, endereco, clienteId);
-                saveClienteEnderecoRelationship(connection, queryClienteEndereco, clienteId, enderecoId);
+               saveEndereco(connection, queryEndereco, endereco, clienteId);
             }
 
 
             for (CartaoDeCredito cartao : cliente.getCartoesDeCredito()) {
-                long cartaoId = saveCartao(connection, queryCartao, cartao, clienteId);
-                saveClienteCartaoRelationship(connection, queryClienteCartao, clienteId, cartaoId);
+                saveCartao(connection, queryCartao, cartao, clienteId);
             }
 
 
@@ -65,11 +61,12 @@ public class ClienteDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, cliente.getNome());
             preparedStatement.setString(2, cliente.getDataDeNascimento());
-            preparedStatement.setString(3, cliente.getCpf());
-            preparedStatement.setString(4, cliente.getEmail());
-            preparedStatement.setString(5, cliente.getTipoDeTelefone());
-            preparedStatement.setString(6, cliente.getTelefone());
-            preparedStatement.setString(7, cliente.getSenha());
+            preparedStatement.setString(3, cliente.getGenero()); // Corrected
+            preparedStatement.setString(4, cliente.getCpf());    // Corrected
+            preparedStatement.setString(5, cliente.getEmail());
+            preparedStatement.setString(6, cliente.getTipoDeTelefone());
+            preparedStatement.setString(7, cliente.getTelefone());
+            preparedStatement.setString(8, cliente.getSenha());
             preparedStatement.executeUpdate();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -94,10 +91,9 @@ public class ClienteDAO {
             preparedStatement.setString(8, endereco.getBairro());
             preparedStatement.setString(9, endereco.getComplemento());
             preparedStatement.setString(10, endereco.getCep());
-            preparedStatement.setBoolean(11, endereco.isCobranca());
-            preparedStatement.setString(12, endereco.getTipoDeEndereco());
-            preparedStatement.setString(13, endereco.getObservacoes());
-            preparedStatement.setLong(14, clienteId); // Set the cliente_id
+            preparedStatement.setString(11, endereco.getTipoDeEndereco());
+            preparedStatement.setString(12, endereco.getObservacoes());
+            preparedStatement.setLong(13, clienteId); // Set the cliente_id
             preparedStatement.executeUpdate();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -112,21 +108,10 @@ public class ClienteDAO {
         }
     }
 
-    private void saveClienteEnderecoRelationship(Connection connection, String query, long clienteId, long enderecoId) throws SQLException {
-        if (enderecoId == 0) {
-            throw new SQLException("Endereco ID is null or invalid. Cannot save relationship.");
-        }
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, clienteId);
-            preparedStatement.setLong(2, enderecoId);
-            preparedStatement.executeUpdate();
-        }
-    }
-
     private long saveCartao(Connection connection, String query, CartaoDeCredito cartao, long clienteId) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, cartao.getNumero());
-            preparedStatement.setString(2, cartao.getBandeira());
+            preparedStatement.setString(1, cartao.getBandeira());
+            preparedStatement.setString(2, cartao.getNumero());
             preparedStatement.setString(3, cartao.getNomeTitular());
             preparedStatement.setString(4, cartao.getValidade());
             preparedStatement.setString(5, cartao.getCvv());
@@ -144,15 +129,8 @@ public class ClienteDAO {
         }
     }
 
-    private void saveClienteCartaoRelationship(Connection connection, String query, long clienteId, long cartaoId) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, clienteId);
-            preparedStatement.setLong(2, cartaoId);
-            preparedStatement.executeUpdate();
-        }
-    }
 
-    public List<Cliente> consultarClientes(ConsultaClientesDTO consultaClientesDTO) {
+    public List<Cliente> findAll(ConsultaClientesDTO consultaClientesDTO) {
         String queryCliente = "SELECT * FROM cliente WHERE " +
                 "(? IS NULL OR LOWER(nome) LIKE LOWER(CONCAT('%', ?, '%'))) AND " +
                 "(? IS NULL OR data_de_nascimento = ?) AND " +
@@ -215,9 +193,12 @@ public class ClienteDAO {
                         cliente.setId(resultSet.getLong("id"));
                         cliente.setNome(resultSet.getString("nome"));
                         cliente.setDataDeNascimento(resultSet.getString("data_de_nascimento"));
+                        cliente.setGenero(resultSet.getString("genero"));
                         cliente.setCpf(resultSet.getString("cpf"));
                         cliente.setEmail(resultSet.getString("email"));
                         cliente.setTelefone(resultSet.getString("telefone"));
+                        cliente.setTipoDeTelefone(resultSet.getString("tipo_de_telefone"));
+                        cliente.setSenha(resultSet.getString("senha"));
                     }
                 }
             }
@@ -239,6 +220,7 @@ public class ClienteDAO {
                         cartao.setNomeTitular(resultSet.getString("nome_titular"));
                         cartao.setValidade(resultSet.getString("validade"));
                         cartao.setCvv(resultSet.getString("cvv"));
+                        cartao.setPreferencial(resultSet.getBoolean("preferencial"));
                         cartoes.add(cartao);
                     }
                 }
@@ -263,8 +245,9 @@ public class ClienteDAO {
                         endereco.setBairro(resultSet.getString("bairro"));
                         endereco.setComplemento(resultSet.getString("complemento"));
                         endereco.setCep(resultSet.getString("cep"));
-                        endereco.setCobranca(resultSet.getBoolean("cobranca"));
+                        endereco.setTipoDeEndereco(resultSet.getString("tipo_de_endereco"));
                         endereco.setObservacoes(resultSet.getString("observacoes"));
+
                         enderecos.add(endereco);
                     }
                 }
@@ -274,4 +257,107 @@ public class ClienteDAO {
             return cliente;
         }
     }
+
+
+
+    public void update(Cliente clienteExistente) {
+        String queryCliente = "UPDATE cliente SET nome = ?, data_de_nascimento = ?, genero = ?, cpf = ?, email = ?, tipo_de_telefone = ?, telefone = ?, senha = ? WHERE id = ?";
+        String queryEnderecoUpdate = "UPDATE endereco SET nome_pais = ?, nome_estado = ?, nome_cidade = ?, tipo_de_residencia = ?, tipo_de_logradouro = ?, logradouro = ?, numero = ?, bairro = ?, complemento = ?, cep = ?,  tipo_de_endereco = ?, observacoes = ? WHERE id = ? AND cliente_id = ?";
+        String queryEnderecoInsert = "INSERT INTO endereco (nome_pais, nome_estado, nome_cidade, tipo_de_residencia, tipo_de_logradouro, logradouro, numero, bairro, complemento, cep,  tipo_de_endereco, observacoes, cliente_id) VALUES (?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String queryCartaoUpdate = "UPDATE cartao_de_credito SET numero = ?, bandeira = ?, nome_titular = ?, validade = ?, cvv = ?, preferencial = ? WHERE id = ? AND cliente_id = ?";
+        String queryCartaoInsert = "INSERT INTO cartao_de_credito (numero, bandeira, nome_titular, validade, cvv, cliente_id, preferencial) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = dataSource.getConnection()) {
+            connection.setAutoCommit(false);
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(queryCliente)) {
+                preparedStatement.setString(1, clienteExistente.getNome());
+                preparedStatement.setString(2, clienteExistente.getDataDeNascimento());
+                preparedStatement.setString(3, clienteExistente.getGenero());
+                preparedStatement.setString(4, clienteExistente.getCpf());
+                preparedStatement.setString(5, clienteExistente.getEmail());
+                preparedStatement.setString(6, clienteExistente.getTipoDeTelefone());
+                preparedStatement.setString(7, clienteExistente.getTelefone());
+                preparedStatement.setString(8, clienteExistente.getSenha()); // Ensure this is set
+                preparedStatement.setLong(9, clienteExistente.getId()); // Set the ID
+                preparedStatement.executeUpdate();
+            }
+
+            for (Endereco endereco : clienteExistente.getEnderecos()) {
+                if (endereco.getId() == null) {
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(queryEnderecoInsert)) {
+                        preparedStatement.setString(1, endereco.getNomePais());
+                        preparedStatement.setString(2, endereco.getNomeEstado());
+                        preparedStatement.setString(3, endereco.getNomeCidade());
+                        preparedStatement.setString(4, endereco.getTipoDeResidencia());
+                        preparedStatement.setString(5, endereco.getTipoDeLogradouro());
+                        preparedStatement.setString(6, endereco.getLogradouro());
+                        preparedStatement.setString(7, endereco.getNumero());
+                        preparedStatement.setString(8, endereco.getBairro());
+                        preparedStatement.setString(9, endereco.getComplemento());
+                        preparedStatement.setString(10, endereco.getCep());
+                        preparedStatement.setString(11, endereco.getTipoDeEndereco());
+                        preparedStatement.setString(12, endereco.getObservacoes());
+                        preparedStatement.setLong(13, clienteExistente.getId());
+                        preparedStatement.executeUpdate();
+                    }
+                } else {
+                    // Update existing address
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(queryEnderecoUpdate)) {
+                        preparedStatement.setString(1, endereco.getNomePais());
+                        preparedStatement.setString(2, endereco.getNomeEstado());
+                        preparedStatement.setString(3, endereco.getNomeCidade());
+                        preparedStatement.setString(4, endereco.getTipoDeResidencia());
+                        preparedStatement.setString(5, endereco.getTipoDeLogradouro());
+                        preparedStatement.setString(6, endereco.getLogradouro());
+                        preparedStatement.setString(7, endereco.getNumero());
+                        preparedStatement.setString(8, endereco.getBairro());
+                        preparedStatement.setString(9, endereco.getComplemento());
+                        preparedStatement.setString(10, endereco.getCep());
+                        preparedStatement.setString(11, endereco.getTipoDeEndereco());
+                        preparedStatement.setString(12, endereco.getObservacoes());
+                        preparedStatement.setLong(13, endereco.getId());
+                        preparedStatement.setLong(14, clienteExistente.getId());
+                        preparedStatement.executeUpdate();
+                    }
+                }
+            }
+
+            // Update or insert credit cards
+            for (CartaoDeCredito cartao : clienteExistente.getCartoesDeCredito()) {
+                if (cartao.getId() == null) {
+                    // Insert new credit card
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(queryCartaoInsert)) {
+                        preparedStatement.setString(1, cartao.getNumero());
+                        preparedStatement.setString(2, cartao.getBandeira());
+                        preparedStatement.setString(3, cartao.getNomeTitular());
+                        preparedStatement.setString(4, cartao.getValidade());
+                        preparedStatement.setString(5, cartao.getCvv());
+                        preparedStatement.setLong(6, clienteExistente.getId());
+                        preparedStatement.setBoolean(7, cartao.getPreferencial()); // Ensure this is set
+                        preparedStatement.executeUpdate();
+                    }
+                } else {
+                    // Update existing credit card
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(queryCartaoUpdate)) {
+                        preparedStatement.setString(1, cartao.getNumero());
+                        preparedStatement.setString(2, cartao.getBandeira());
+                        preparedStatement.setString(3, cartao.getNomeTitular());
+                        preparedStatement.setString(4, cartao.getValidade());
+                        preparedStatement.setString(5, cartao.getCvv());
+                        preparedStatement.setBoolean(6, cartao.getPreferencial());
+                        preparedStatement.setLong(7, cartao.getId());
+                        preparedStatement.setLong(8, clienteExistente.getId());
+                        preparedStatement.executeUpdate();
+                    }
+                }
+            }
+
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao editar cliente: " + e.getMessage());
+        }
+    }
+
 }

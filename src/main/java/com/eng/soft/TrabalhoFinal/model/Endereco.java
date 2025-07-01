@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "endereco")
-public class Endereco {
+public class Endereco extends DomainEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,13 +25,12 @@ public class Endereco {
     private String bairro;
     private String cep;
     private String tipoDeEndereco;
-    private boolean cobranca;
     private String observacoes;
 
     public Endereco() {}
 
-    public Endereco(String tipoDeEndereco, String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep, boolean cobranca, String observacoes) {
-        this.tipoDeEndereco = tipoDeEndereco;
+    public Endereco( String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep, String tipoDeEndereco, String observacoes) {
+
         this.tipoDeResidencia = tipoDeResidencia;
         this.tipoDeLogradouro = tipoDeLogradouro;
         this.logradouro = logradouro;
@@ -39,7 +38,23 @@ public class Endereco {
         this.complemento = complemento;
         this.bairro = bairro;
         this.cep = cep;
-        this.cobranca = cobranca;
+        this.tipoDeEndereco = tipoDeEndereco;
+        this.observacoes = observacoes;
+        this.nomeCidade = nomeCidade;
+        this.nomeEstado = nomeEstado;
+        this.nomePais = nomePais;
+
+    }
+    public Endereco( Long id, String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep,String tipoDeEndereco, String observacoes) {
+        this.id = id;
+        this.tipoDeResidencia = tipoDeResidencia;
+        this.tipoDeLogradouro = tipoDeLogradouro;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.tipoDeEndereco = tipoDeEndereco;
         this.observacoes = observacoes;
         this.nomeCidade = nomeCidade;
         this.nomeEstado = nomeEstado;
@@ -48,9 +63,8 @@ public class Endereco {
     }
 
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     public String getTipoDeEndereco() {
         return tipoDeEndereco;
     }
@@ -133,15 +147,10 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public boolean isCobranca() {
-        return cobranca;
-    }
-
-    public void setCobranca(boolean cobranca) {
-        this.cobranca = cobranca;
-    }
 
 
-    public void setId(long aLong) {
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

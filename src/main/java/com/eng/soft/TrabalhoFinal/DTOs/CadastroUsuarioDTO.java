@@ -6,6 +6,7 @@ import java.util.List;
 public record CadastroUsuarioDTO(
     String nome,
     String dataDeNascimento,
+    String genero,
     String cpf,
     String email,
     String tipoDeTelefone,
@@ -15,4 +16,6 @@ public record CadastroUsuarioDTO(
     List<EnderecoDTO> enderecos,
     List<CartoesDTO> cartoesDeCredito
 
-) {}
+) {
+
+}

@@ -16,11 +16,6 @@ function addAddress() {
         selects[4].id = `cidade-${addressCount}`;
     }
 
-    // Ajusta radio e label
-    const radioInput = newAddress.querySelector(".form-check-input");
-    const radioLabel = newAddress.querySelector(".form-check-label");
-    radioInput.id = `endereco-cobranca-${addressCount}`;
-    radioLabel.setAttribute("for", `endereco-cobranca-${addressCount}`);
 
     addressCount++;
 
@@ -34,6 +29,20 @@ function addCard() {
     newCard.removeAttribute("id");
     newCard.style.display = "block";
     newCard.classList.add("cartao-frame"); // Adiciona a classe necessária
+
+//      // Ajusta radio e label
+//        const radioInput = newAddress.querySelector(".form-check-input");
+//        const radioLabel = newAddress.querySelector(".form-check-label");
+//        radioInput.id = `endereco-cobranca-${addressCount}`;
+//        radioLabel.setAttribute("for", `endereco-cobranca-${addressCount}`);
+
+//ajusta radio cartao-preferencial
+    const radioInput = newCard.querySelector(".form-check-input");
+    const radioLabel = newCard.querySelector(".form-check-label");
+    radioInput.id = `cartao-preferencial-${cardCount}`;
+    radioLabel.setAttribute("for", `cartao-preferencial-${cardCount}`);
+
+
 
     newCard.querySelector(".remove-card-btn").onclick = () => newCard.remove();
     cardContainer.appendChild(newCard);

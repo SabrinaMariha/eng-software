@@ -30,9 +30,55 @@ app.get("/", (req, res) => {
 app.get("/consulta", (req, res) => {
   res.sendFile(path.join(__dirname, "index", "ConsultaClientes.html"));
 });
-// http://localhost:8080/editar?id=${clienteId}
-app.get("/editar", (req, res) => {
-  res.sendFile(path.join(__dirname, "index", "EdicaoClientes.html"));
+// http://localhost:3000/editar?id=${clienteId}
+app.get("/editar", async (req, res) => {
+  const clienteId = req.query.id;
+
+  if (!clienteId) {
+    return res.status(400).json({ error: "Cliente ID não fornecido." });
+  }
+
+  try {
+    // Faz a requisição ao backend Spring Boot usando fetch
+    const backendResponse = await fetch(`http://localhost:8080/editar?id=${clienteId}`, {
+      headers: { Accept: "application/json" },
+    });
+
+    if (!backendResponse.ok) {
+      throw new Error(`Erro ao buscar cliente do backend: ${backendResponse.statusText}`);
+    }
+
+    const clienteData = await backendResponse.json();
+
+    // Verifica se a requisição é para JSON ou HTML
+    const acceptHeader = req.headers.accept || "";
+    if (acceptHeader.includes("application/json")) {
+      return res.json(clienteData); // Retorna JSON
+    }
+    console.log("Cliente encontrado:", clienteData);
+    // Caso contrário, serve o HTML
+    res.sendFile(path.join(__dirname, "index", "EdicaoClientes.html"));
+  } catch (error) {
+    console.error("Erro ao buscar cliente do backend:", error.message);
+    res.status(500).json({ error: "Erro ao buscar cliente do backend." });
+  }
+});
+app.put("/editar", async (req, res) => {
+  const cliente = req.body;
+
+  if (!cliente || !cliente.id) {
+    return res.status(400).json({ error: "Dados do cliente inválidos." });
+  }
+
+  try {
+    // Aqui você poderia enviar os dados para o backend Spring Boot
+    // Simulando sucesso
+    console.log("Cliente atualizado:", cliente);
+    res.json({ message: "Cliente atualizado com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao atualizar cliente:", error.message);
+    res.status(500).json({ error: "Erro ao atualizar cliente." });
+  }
 });
 
 // Exemplo básico de recebimento do POST (cadastro)

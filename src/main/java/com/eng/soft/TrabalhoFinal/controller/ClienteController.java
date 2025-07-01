@@ -5,6 +5,7 @@ import com.eng.soft.TrabalhoFinal.DTOs.CadastroUsuarioDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.ClienteDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.ConsultaClientesDTO;
 import com.eng.soft.TrabalhoFinal.model.Cliente;
+import com.eng.soft.TrabalhoFinal.validacoes.Fachada;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ import java.util.Map;
 @RestController
 public class ClienteController {
 
-
+    Fachada fachada = new Fachada();
     ClienteDAO clienteDAO;
     public ClienteController(ClienteDAO clienteDAO) {
         this.clienteDAO = clienteDAO;
@@ -28,12 +29,16 @@ public class ClienteController {
     @Transactional
     public Map<String, String> cadastrarCliente(@RequestBody CadastroUsuarioDTO clienteDados) {
         System.out.println("Recebido: " + clienteDados);
-        var Cliente = new Cliente(clienteDados);
-        clienteDAO.salvar(Cliente);
+        Cliente cliente = new Cliente(clienteDados);
+        // Aqui você pode adicionar validações adicionais, se necessário
+        // Por exemplo, verificar se o CPF já está cadastrado, validar a idade, etc.
+
+        fachada.processar(cliente); // Executa as regras de negócio definidas nas estratégias
+        clienteDAO.save(cliente);
 
         Map<String, String> resposta = new HashMap<>();
         resposta.put("mensagem", "Cliente cadastrado com sucesso!");
-        resposta.put("nome", Cliente.getNome()); // se tiver o método getNome()
+        resposta.put("nome", cliente.getNome()); // se tiver o método getNome()
         return resposta;
     }
 
@@ -41,7 +46,7 @@ public class ClienteController {
     public ResponseEntity<Map<String, Object>> consultarClientes(ConsultaClientesDTO consultaClientesDTO) {
         System.out.println("Consulta recebida: " + consultaClientesDTO);
 
-        List<Cliente> clientes = clienteDAO.consultarClientes(consultaClientesDTO);
+        List<Cliente> clientes = clienteDAO.findAll(consultaClientesDTO);
         Map<String, Object> resposta = new HashMap<>();
 
         if (clientes.isEmpty()) {
@@ -67,8 +72,31 @@ public class ClienteController {
         clienteDTO.setTelefone(cliente.getTelefone());
         clienteDTO.setEnderecos(cliente.getEnderecos());
         clienteDTO.setCartoesDeCredito(cliente.getCartoesDeCredito());
+        clienteDTO.setSenha(cliente.getSenha()); // Se necessário, adicione o campo senha
 
         return ResponseEntity.ok(clienteDTO);
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/editar")
+    @Transactional
+    public ResponseEntity<Map<String, String>> atualizarCliente(@RequestParam Long id, @RequestBody CadastroUsuarioDTO clienteDados) throws SQLException {
+        System.out.println("Atualizando cliente com ID: " + id);
+        System.out.println("Dados recebidos: " + clienteDados);
+
+        Cliente clienteExistente = clienteDAO.findById(id);
+        if (clienteExistente == null) {
+            return ResponseEntity.status(404).body(Map.of("mensagem", "Cliente não encontrado."));
+        }
+
+        // Atualiza os dados do cliente existente
+        clienteExistente.editar(clienteDados);
+        clienteDAO.update(clienteExistente);
+
+        Map<String, String> resposta = new HashMap<>();
+        resposta.put("mensagem", "Cliente atualizado com sucesso!");
+        return ResponseEntity.ok(resposta);
     }
 
 }
