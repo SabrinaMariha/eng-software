@@ -38,7 +38,6 @@ public class ClienteDTO {
     public List<EnderecoDTO> getEnderecos() { return enderecos; }
     public List<CartoesDTO> getCartoesDeCredito() { return cartoesDeCredito; }
     public void setEnderecos(List<Endereco> enderecos) {
-
         List<EnderecoDTO> enderecosDTO = enderecos.stream()
                 .map(endereco -> new EnderecoDTO(
                         endereco.getId(),
@@ -60,7 +59,6 @@ public class ClienteDTO {
                 .toList();
         this.enderecos = enderecosDTO;
     }
-
     public void setCartoesDeCredito(List<CartaoDeCredito> cartoesDeCredito) {
         List<CartoesDTO> cartoesDTO = cartoesDeCredito.stream()
                 .map(cartao -> new CartoesDTO(
@@ -74,6 +72,18 @@ public class ClienteDTO {
                 ))
                 .toList();
         this.cartoesDeCredito = cartoesDTO;
-    }
+    }   
 
+    public void update(ClienteDTO clienteDTO) {
+        this.nome = clienteDTO.getNome();
+        this.dataDeNascimento = clienteDTO.getDataDeNascimento();
+        this.genero = clienteDTO.getGenero();
+        this.cpf = clienteDTO.getCpf();
+        this.email = clienteDTO.getEmail();
+        this.tipoDeTelefone = clienteDTO.getTipoDeTelefone();
+        this.telefone = clienteDTO.getTelefone();
+        this.senha = clienteDTO.getSenha();
+        this.enderecos = clienteDTO.getEnderecos();
+        this.cartoesDeCredito = clienteDTO.getCartoesDeCredito();
+    }
 }

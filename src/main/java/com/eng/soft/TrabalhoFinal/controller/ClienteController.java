@@ -30,18 +30,16 @@ public class ClienteController {
 
     @PostMapping("/")
     @Transactional
-    public Map<String, String> cadastrarCliente(@RequestBody CadastroUsuarioDTO clienteDados) {
+    public ResponseEntity<Map<String, Object>> cadastrarCliente(@RequestBody CadastroUsuarioDTO clienteDados) {
         System.out.println("Recebido: " + clienteDados);
         Cliente cliente = new Cliente(clienteDados);
-        // Aqui você pode adicionar validações adicionais, se necessário
-        // Por exemplo, verificar se o CPF já está cadastrado, validar a idade, etc.
-
+        
         fachada.save(cliente); // Executa as regras de negócio definidas nas estratégias
        
         Map<String, String> resposta = new HashMap<>();
         resposta.put("mensagem", "Cliente cadastrado com sucesso!");
         resposta.put("nome", cliente.getNome()); // se tiver o método getNome()
-        return resposta;
+        return ResponseEntity.ok(resposta);
     }
 
     @GetMapping("/consulta")
@@ -65,19 +63,9 @@ public class ClienteController {
     @GetMapping("/editar")
     public ResponseEntity<ClienteDTO> editarCliente(@RequestParam Long id) throws SQLException {
        // Cliente cliente = clienteDAO.findById(id);
-        Cliente cliente = fachada.findById(id);
-        // Map Cliente to ClienteDTO
+        Cliente cliente = fachada.findById(id); 
         ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setNome(cliente.getNome());
-        clienteDTO.setDataDeNascimento(cliente.getDataDeNascimento());
-        clienteDTO.setCpf(cliente.getCpf());
-        clienteDTO.setEmail(cliente.getEmail());
-        clienteDTO.setTipoDeTelefone(cliente.getTipoDeTelefone());
-        clienteDTO.setTelefone(cliente.getTelefone());
-        clienteDTO.setEnderecos(cliente.getEnderecos());
-        clienteDTO.setCartoesDeCredito(cliente.getCartoesDeCredito());
-        clienteDTO.setSenha(cliente.getSenha()); // Se necessário, adicione o campo senha
-
+        clienteDTO.update(cliente);
         return ResponseEntity.ok(clienteDTO);
 
     }
