@@ -5,7 +5,7 @@ import com.eng.soft.TrabalhoFinal.DTOs.CadastroUsuarioDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.ClienteDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.ConsultaClientesDTO;
 import com.eng.soft.TrabalhoFinal.model.Cliente;
-import com.eng.soft.TrabalhoFinal.validacoes.Fachada;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +19,13 @@ import java.util.Map;
 @RestController
 public class ClienteController {
 
-    FachadaCliente fachada = new Fachada();
-    ClienteDAO clienteDAO;
+    FachadaCliente fachada ;
+    private  ClienteDAO clienteDAO;
+
     public ClienteController(ClienteDAO clienteDAO) {
+        this.fachada = new FachadaCliente(clienteDAO);
         this.clienteDAO = clienteDAO;
+
     }
 
     @PostMapping("/")
@@ -45,8 +48,10 @@ public class ClienteController {
     public ResponseEntity<Map<String, Object>> consultarClientes(ConsultaClientesDTO consultaClientesDTO) {
         System.out.println("Consulta recebida: " + consultaClientesDTO);
 
-        List<Cliente> clientes = clienteDAO.findAll(consultaClientesDTO);
+        Cliente clienteASerConsultado = new Cliente(consultaClientesDTO);
+        List<Cliente> clientes = clienteDAO.findAll(clienteASerConsultado);
         Map<String, Object> resposta = new HashMap<>();
+
 
         if (clientes.isEmpty()) {
             resposta.put("mensagem", "Nenhum cliente encontrado.");

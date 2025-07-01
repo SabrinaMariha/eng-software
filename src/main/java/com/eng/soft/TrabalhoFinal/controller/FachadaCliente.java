@@ -1,7 +1,14 @@
-package com.eng.soft.TrabalhoFinal.validacoes;
+package com.eng.soft.TrabalhoFinal.controller;
+import com.eng.soft.TrabalhoFinal.DAO.ClienteDAO;
 import com.eng.soft.TrabalhoFinal.model.DomainEntity;
 import java.util.List;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import com.eng.soft.TrabalhoFinal.DAO.IDAO;
+import com.eng.soft.TrabalhoFinal.model.Cliente;
+import com.eng.soft.TrabalhoFinal.validacoes.IStrategy;
+import com.eng.soft.TrabalhoFinal.negocio.impl.*;
 // Para todo cliente cadastrado é obrigatório o registro de ao menos um endereço de cobrança. 
 // Para todo cliente cadastrado é obrigatório o registro de ao menos um endereço de entrega. 
 // Todo cadastro de endereços associados a clientes deve ser composto dos seguintes
@@ -15,40 +22,88 @@ import java.util.List;
 // Gênero, Nome, Data de Nascimento, CPF, 
 // Telefone (deve ser composto pelo tipo, DDD e número), e-mail, senha, endereço residencial.
 
-public class Fachada implements IFachada {
+public class FachadaCliente implements IFachada {
     //responsável por chamar uma lista de strategys
     //e executar as regras de negócio
-    rns = new HashMap<var, List<IStrategy>>();
+    Map<String, List<IStrategy>> rns = new HashMap<String, List<IStrategy>>();
 	
 	List<IStrategy> regrasCliente = new ArrayList<IStrategy>();
 
-    regrasCliente.add(new ValidarDadosObrigatoriosCliente());
-    regrasCliente.add(new ValidarTelefone());
-    regrasCliente.add(new ValidarDadosObrigatoriosCartoes());
-    regrasCliente.add(new ValidarBandeiraCartao());
-    regrasCliente.add(new ValidarDadosObrigatoriosEnderecos());
-    regrasCliente.add(new ValidarTiposEndereco());
+//    regrasCliente.add(new ValidarDadosObrigatoriosCadastro());
+//    regrasCliente.add(new  ValidarTelefone());
+//    regrasCliente.add(new ValidarDadosObrigatoriosCartoes());
+//    regrasCliente.add(new ValidarBandeiraCartao());
+//    regrasCliente.add(new ValidarDadosObrigatoriosEnderecos());
+//    regrasCliente.add(new ValidarTiposEndereco());
+//
+//    rns.put(Cliente.class.getName(), regrasCliente);
+    Map <String, IDAO> daos = new HashMap<String, IDAO>();
+    //adicionar o DAO do Cliente no mapa de DAOs
+    // Exemplo:
+//    daos.put(Cliente.class.getName(), new ClienteDAO());
+    ClienteDAO clienteDAO;
 
-    rns.put(Cliente.class.getName(), regrasCliente);
-    daos = new HashMap<String, IDAO>();
-	daos.put(Cliente.class.getName(), new ClienteDAO());
+    public FachadaCliente(ClienteDAO clienteDAO) {
+        this.clienteDAO = clienteDAO;
+        regrasCliente.add(new ValidarDadosObrigatoriosCadastro());
+        regrasCliente.add(new  ValidarTelefone());
+        regrasCliente.add(new ValidarDadosObrigatoriosCartoes());
+        regrasCliente.add(new ValidarBandeiraCartao());
+        regrasCliente.add(new ValidarDadosObrigatoriosEnderecos());
+        regrasCliente.add(new ValidarTiposEndereco());
+
+        rns.put(Cliente.class.getName(), regrasCliente);
+
+        // Adicionar o DAO do Cliente no mapa de DAOs
+        daos.put(Cliente.class.getName(), clienteDAO);
+    }
+
+
 
     @Override
-    public String save(Cliente cliente) {
+    public String save(DomainEntity entity) {
+        Cliente cliente = (Cliente) entity;
+
         String nmClasse = cliente.getClass().getName();
-		List<IStrategy> rn = rns.get(nmClasse);
+        List<IStrategy> rn = rns.get(nmClasse);
         StringBuilder sb = new StringBuilder();
-        
+
         for(IStrategy s:rn) {
-			String msg = s.processar(cliente);
-			if(msg != null) {
-				sb.append(msg)
-			}
-		}
+            String msg = s.processar(cliente);
+            if(msg != null) {
+                sb.append(msg);
+            }
+        }
         if(sb.length()==0) {
-			IDAO dao = daos.get(nmClasse);
-			dao.save(cliente);
-		}
-		return null;
+            IDAO dao = daos.get(nmClasse);
+            dao.save(cliente);
+        }
+        return null;
+    }
+
+    @Override
+    public String update(DomainEntity entity) {
+        return "";
+    }
+
+    @Override
+    public String delete(DomainEntity entity) {
+        return "";
+    }
+
+    @Override
+    public List<DomainEntity> findAll(DomainEntity entity) {
+        Cliente clienteASerConsultado = (Cliente) entity;
+        List<Cliente> clientes = clienteDAO.findAll(clienteASerConsultado);
+        List<DomainEntity> domainEntities = new ArrayList<>();
+        for (Cliente cliente : clientes) {
+            domainEntities.add(cliente);
+        }
+        return domainEntities;
+    }
+
+    @Override
+    public DomainEntity findById(Long id, Class<? extends DomainEntity> entityClass) {
+        return null;
     }
 }

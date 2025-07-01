@@ -1,5 +1,15 @@
+package com.eng.soft.TrabalhoFinal.controller;
+
+import com.eng.soft.TrabalhoFinal.model.Cliente;
+import com.eng.soft.TrabalhoFinal.model.DomainEntity;
+
+import java.util.List;
+
 public interface IFachada {
-    public String save(DomainEntity entity);
+
+
+
+	public String save(DomainEntity entity);
 	public String update(DomainEntity entity);
 	public String delete(DomainEntity entity);
 	public List<DomainEntity> findAll(DomainEntity entity);

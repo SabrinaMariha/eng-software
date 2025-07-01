@@ -2,6 +2,7 @@ package com.eng.soft.TrabalhoFinal.model;
 
 import com.eng.soft.TrabalhoFinal.DTOs.CartoesDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.CadastroUsuarioDTO;
+import com.eng.soft.TrabalhoFinal.DTOs.ConsultaClientesDTO;
 import com.eng.soft.TrabalhoFinal.DTOs.EnderecoDTO;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -102,6 +103,21 @@ public class Cliente extends DomainEntity {
             }
             this.cartoesDeCredito.add(cartao);
         }
+    }
+
+    public Cliente(ConsultaClientesDTO consultaClientesDTO) {
+        this.nome = consultaClientesDTO.nome();
+        this.dataDeNascimento = consultaClientesDTO.dataDeNascimento();
+
+        this.cpf = consultaClientesDTO.cpf();
+        this.email = consultaClientesDTO.email();
+
+        this.telefone = consultaClientesDTO.telefone();
+
+
+        // Inicializa as listas de endereços e cartões de crédito
+        this.enderecos = new ArrayList<>();
+        this.cartoesDeCredito = new ArrayList<>();
     }
 
 

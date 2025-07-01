@@ -129,8 +129,7 @@ public class ClienteDAO implements IDAO<Cliente> {
         }
     }
 
-
-    public List<Cliente> findAll(ConsultaClientesDTO consultaClientesDTO) {
+    public List<Cliente> findAll (Cliente clienteASerConsultado){
         String queryCliente = "SELECT * FROM cliente WHERE " +
                 "(? IS NULL OR LOWER(nome) LIKE LOWER(CONCAT('%', ?, '%'))) AND " +
                 "(? IS NULL OR data_de_nascimento = ?) AND " +
@@ -142,17 +141,16 @@ public class ClienteDAO implements IDAO<Cliente> {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatementCliente = connection.prepareStatement(queryCliente)) {
-
-            preparedStatementCliente.setString(1, consultaClientesDTO.nome());
-            preparedStatementCliente.setString(2, consultaClientesDTO.nome());
-            preparedStatementCliente.setString(3, consultaClientesDTO.dataDeNascimento());
-            preparedStatementCliente.setString(4, consultaClientesDTO.dataDeNascimento());
-            preparedStatementCliente.setString(5, consultaClientesDTO.cpf());
-            preparedStatementCliente.setString(6, consultaClientesDTO.cpf());
-            preparedStatementCliente.setString(7, consultaClientesDTO.email());
-            preparedStatementCliente.setString(8, consultaClientesDTO.email());
-            preparedStatementCliente.setString(9, consultaClientesDTO.telefone());
-            preparedStatementCliente.setString(10, consultaClientesDTO.telefone());
+            preparedStatementCliente.setString(1, clienteASerConsultado.getNome());
+            preparedStatementCliente.setString(2, clienteASerConsultado.getNome());
+            preparedStatementCliente.setString(3, clienteASerConsultado.getDataDeNascimento());
+            preparedStatementCliente.setString(4, clienteASerConsultado.getDataDeNascimento());
+            preparedStatementCliente.setString(5, clienteASerConsultado.getCpf());
+            preparedStatementCliente.setString(6, clienteASerConsultado.getCpf());
+            preparedStatementCliente.setString(7, clienteASerConsultado.getEmail());
+            preparedStatementCliente.setString(8, clienteASerConsultado.getEmail());
+            preparedStatementCliente.setString(9, clienteASerConsultado.getTelefone());
+            preparedStatementCliente.setString(10, clienteASerConsultado.getTelefone());
 
             try (ResultSet resultSetCliente = preparedStatementCliente.executeQuery()) {
                 while (resultSetCliente.next()) {
@@ -176,6 +174,7 @@ public class ClienteDAO implements IDAO<Cliente> {
 
         return clientes;
     }
+
 
     public Cliente findById(Long id) throws SQLException {
         String queryCliente = "SELECT * FROM cliente WHERE id = ?";
