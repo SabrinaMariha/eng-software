@@ -61,8 +61,8 @@ public class ClienteDAO implements IDAO<Cliente> {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, cliente.getNome());
             preparedStatement.setString(2, cliente.getDataDeNascimento());
-            preparedStatement.setString(3, cliente.getGenero()); // Corrected
-            preparedStatement.setString(4, cliente.getCpf());    // Corrected
+            preparedStatement.setString(3, cliente.getGenero()); 
+            preparedStatement.setString(4, cliente.getCpf());   
             preparedStatement.setString(5, cliente.getEmail());
             preparedStatement.setString(6, cliente.getTipoDeTelefone());
             preparedStatement.setString(7, cliente.getTelefone());
@@ -71,7 +71,7 @@ public class ClienteDAO implements IDAO<Cliente> {
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    return generatedKeys.getLong(1); // Return the generated Cliente ID
+                    return generatedKeys.getLong(1); 
                 } else {
                     throw new SQLException("Failed to retrieve Cliente ID.");
                 }
@@ -257,8 +257,6 @@ public class ClienteDAO implements IDAO<Cliente> {
             return cliente;
         }
     }
-
-
 
     public void update(Cliente clienteExistente) {
         String queryCliente = "UPDATE cliente SET nome = ?, data_de_nascimento = ?, genero = ?, cpf = ?, email = ?, tipo_de_telefone = ?, telefone = ?, senha = ? WHERE id = ?";

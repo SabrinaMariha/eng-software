@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 public class ClienteController {
 
-    Fachada fachada = new Fachada();
+    FachadaCliente fachada = new Fachada();
     ClienteDAO clienteDAO;
     public ClienteController(ClienteDAO clienteDAO) {
         this.clienteDAO = clienteDAO;
@@ -33,9 +33,8 @@ public class ClienteController {
         // Aqui você pode adicionar validações adicionais, se necessário
         // Por exemplo, verificar se o CPF já está cadastrado, validar a idade, etc.
 
-        fachada.processar(cliente); // Executa as regras de negócio definidas nas estratégias
-        clienteDAO.save(cliente);
-
+        fachada.save(cliente); // Executa as regras de negócio definidas nas estratégias
+       
         Map<String, String> resposta = new HashMap<>();
         resposta.put("mensagem", "Cliente cadastrado com sucesso!");
         resposta.put("nome", cliente.getNome()); // se tiver o método getNome()
