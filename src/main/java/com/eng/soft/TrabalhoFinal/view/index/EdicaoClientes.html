@@ -34,7 +34,7 @@
 
     <main class="content-area">
     <form>
-        <h2>Dados do Cliente</h2>
+        <h2>Dados Pessoais do Cliente</h2>
         <div class="row">
             <div class="col-md-6">
                 <label for="nome" class="form-label">Nome</label>
@@ -162,21 +162,26 @@
                         <input type="text" class="form-control" name="cidade">
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Tipo De Endereço</label>
-                        <select class="form-select" name="tipo-endereco">
-                            <option selected>Escolha...</option>
-                            <option>Entrega</option>
-                            <option>Cobrança</option>
-                        </select>
-                    </div>
-
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
+                
+                <div class="row mt-3 align-items-center">
+                    <div class="col-7">
                         <label class="form-label">Observações</label>
                         <textarea class="form-control" name="observacoes"></textarea>
+                    </div>
+                
+                    <div class="col-md-4 d-flex flex-column">
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" name="endereco-entrega" id="endereco-entrega">
+                            <label class="form-check-label" for="endereco-entrega">
+                            Endereço de Entrega
+                            </label>
+                        </div>
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" name="endereco-cobranca" id="endereco-cobranca">
+                            <label class="form-check-label" for="endereco-cobranca">
+                            Endereço de Cobrança
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -188,7 +193,7 @@
         </div>
         <button type="button" class="btn btn-secondary mt-3" onclick="addAddress()">Adicionar Endereço</button>
 
-        <h2 class="mt-4">Cartão de Crédito</h2>
+        <h2 class="mt-4">Cartões de Crédito</h2>
         <div id="card-container">
             <div id="card-template" style="display: none;">
                 <div class="row">
@@ -238,7 +243,12 @@
             </div>
         </div>
         <button type="button" class="btn btn-secondary mt-3" onclick="addCard()">Adicionar Cartão</button>
-        <button type="submit" class="btn btn-primary mt-4">Salvar</button>
+       
+        <div class="row mt-5 align-items-center justify-content-end">
+            <div class="col-5 d-flex justify-content-end">
+                 <button type="submit" class="btn btn-primary mt-4">Salvar</button>
+            </div>
+        </div>
     </form>
 </main>
 

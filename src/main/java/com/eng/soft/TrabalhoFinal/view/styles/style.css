@@ -16,7 +16,7 @@ body {
 /* Sidebar Styles */
 .sidebar {
     width: 260px;
-    background: linear-gradient(180deg, #5d7fb5 20%, #222a49 100%);
+    background:#5d7fb5;
     color: white;
     position: fixed;
     height: 100vh;
@@ -25,8 +25,32 @@ body {
     z-index: 1000;
 }
 
+
+h2[class="mt-4"] {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #3c3e3f;
+    border-bottom: 2px solid #5d7fb5;
+    margin-bottom: 2rem;
+}
+/* Estilo para botões submit */
+button[type="submit"] {
+    background-color: #184ca0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #5d7fb5;
+}
+
 .sidebar-header {
-    padding: 30px;
+    padding: 20px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -58,7 +82,7 @@ body {
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    color: #bdc3c7;
+    color: #ffffff;
     text-decoration: none;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
@@ -66,13 +90,13 @@ body {
 
 .sidebar-nav .nav-link:hover {
     background-color: rgba(255,255,255,0.1);
-    color: #ecf0f1;
+    color: #ffffff;
     border-left-color: #3498db;
 }
 
 .sidebar-nav .nav-link.active {
     background-color: rgba(52, 152, 219, 0.2);
-    color: #ecf0f1;
+    color: #ffffff;
     border-left-color: #3498db;
 }
 
@@ -94,7 +118,7 @@ body {
 .page-header {
     background: #5d7fb5;
     color: white;
-    padding: 30px 40px;
+    padding: 20px 40px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -102,6 +126,14 @@ body {
     margin: 0;
     font-size: 2rem;
     font-weight: 300;
+}
+.footer {
+    background-color: #5d7fb5 ;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    width: 100%;
 }
 
 .content-area {
@@ -180,7 +212,7 @@ nav ul li a.active {
 
 nav ul li a:hover {
     color: #fff;
-    background-color: #0908686b;
+    background-color: #222a49 ;
 }
 
 main {

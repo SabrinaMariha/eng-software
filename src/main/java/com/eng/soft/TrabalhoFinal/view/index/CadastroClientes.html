@@ -33,7 +33,7 @@
 
     <main class="content-area">
     <form>
-        <h2>Dados do Cliente</h2>
+     <h2 class="mt-4">Dados Pessoais</h2>
         <div class="row">
             <div class="col/12">
                 <label for="nome" class="form-label">Nome</label>
@@ -165,17 +165,7 @@
                         <input type="text" class="form-control" name="cidade">
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Tipo De Endereço</label>
-                        <select class="form-select" name="tipo-endereco">
-                            <option selected>Escolha...</option>
-                            <option>Entrega</option>
-                            <option>Cobrança</option>
-                        </select>
-                    </div>
                 
-                </div>
                 <div class="row mt-3 align-items-center">
                     <div class="col-7">
                         <label class="form-label">Observações</label>
@@ -206,7 +196,7 @@
         </div>
         <button type="button" class="btn btn-secondary mt-3" onclick="addAddress()">Adicionar Endereço</button>
 
-        <h2 class="mt-4">Cartão de Crédito</h2>
+        <h2 class="mt-4">Cartões de Crédito</h2>
         <div id="card-container">
             <div id="card-template" style="display: none;">
                 <div class="row">
@@ -258,11 +248,17 @@
             </div>
         </div>
         <button type="button" class="btn btn-secondary mt-3" onclick="addCard()">Adicionar Cartão</button>
-        <button type="submit" class="btn btn-primary mt-4">Cadastrar</button>
+
+         <div class="row mt-5 align-items-center justify-content-end">
+            <div class="col-5 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mt-4" >Cadastrar</button>
+            </div>
+        </div>
+        
     </form>
 </main>
 
-<footer class="bg-primary text-white text-center py-3">
+<footer class="footer">
     <p>&copy; 2025 Trabalho Engenharia de Software III. Todos os direitos reservados.</p>
 </footer>
 <script src="/scripts/CadastroClientes.js"></script>
