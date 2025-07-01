@@ -35,15 +35,19 @@
     <form>
         <h2>Dados do Cliente</h2>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col/12">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" required>
             </div>
+            
+        </div>
+         <div class="row">
+        
             <div class="col-md-6">
                 <label for="data-nascimento" class="form-label">Data de Nascimento</label>
                 <input type="date" class="form-control" id="data-nascimento" required>
             </div>
-            <div>
+            <div class="col-md-6">
                 <label for="genero" class="form-label">Gênero</label>
                 <select id="genero" class="form-select" required>
                     <option selected>Escolha...</option>
@@ -170,11 +174,26 @@
                             <option>Cobrança</option>
                         </select>
                     </div>
+                
                 </div>
                 <div class="row mt-3">
-                    <div class="col-12">
+                    <div class="col-7">
                         <label class="form-label">Observações</label>
                         <textarea class="form-control" name="observacoes"></textarea>
+                    </div>
+                     <div class="col-md-5 d-flex align-items-center ">
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" name="endereco-entrega" id="endereco-entrega">
+                            <label class="form-check-label" for="endereco-entrega">
+                                Endereço de Entrega
+                            </label>
+                        </div>
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="checkbox" name="endereco-cobranca" id="endereco-cobranca">
+                            <label class="form-check-label" for="endereco-cobranca">
+                                Endereço de Cobrança
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-3">
