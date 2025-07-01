@@ -25,11 +25,13 @@ public class Endereco extends DomainEntity {
     private String bairro;
     private String cep;
     private String tipoDeEndereco;
+    private String cobranca;
+    private String entrega;
     private String observacoes;
 
     public Endereco() {}
 
-    public Endereco( String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep, String tipoDeEndereco, String observacoes) {
+    public Endereco( String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep, String tipoDeEndereco, String cobranca, String entrega, String observacoes) {
 
         this.tipoDeResidencia = tipoDeResidencia;
         this.tipoDeLogradouro = tipoDeLogradouro;
@@ -39,13 +41,15 @@ public class Endereco extends DomainEntity {
         this.bairro = bairro;
         this.cep = cep;
         this.tipoDeEndereco = tipoDeEndereco;
+        this.cobranca = cobranca;
+        this.entrega = entrega;
         this.observacoes = observacoes;
         this.nomeCidade = nomeCidade;
         this.nomeEstado = nomeEstado;
         this.nomePais = nomePais;
 
     }
-    public Endereco( Long id, String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep,String tipoDeEndereco, String observacoes) {
+    public Endereco( Long id, String nomeCidade, String nomeEstado, String nomePais, String tipoDeResidencia, String tipoDeLogradouro, String logradouro, String numero, String complemento, String bairro, String cep,String tipoDeEndereco, String cobranca, String entrega, String observacoes) {
         this.id = id;
         this.tipoDeResidencia = tipoDeResidencia;
         this.tipoDeLogradouro = tipoDeLogradouro;
@@ -55,6 +59,8 @@ public class Endereco extends DomainEntity {
         this.bairro = bairro;
         this.cep = cep;
         this.tipoDeEndereco = tipoDeEndereco;
+        this.cobranca = cobranca;
+        this.entrega = entrega;
         this.observacoes = observacoes;
         this.nomeCidade = nomeCidade;
         this.nomeEstado = nomeEstado;
@@ -147,10 +153,23 @@ public class Endereco extends DomainEntity {
         this.cep = cep;
     }
 
-
-
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+    public String getCobranca() {
+        return cobranca;
+    }
+    public void setCobranca(String cobranca) {
+        this.cobranca = cobranca;
+    }
+    public String getEntrega() {
+        return entrega;
+    }
+    public void setEntrega(String entrega) {
+        this.entrega = entrega;
     }
 }

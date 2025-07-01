@@ -28,7 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     bairro: frame.querySelector('input[name="bairro"]').value.trim(),
                     complemento: frame.querySelector('input[name="complemento"]').value.trim(),
                     cep: frame.querySelector('input[name="cep"]').value.trim(),
-                    tipoDeEndereco: frame.querySelector('select[name="tipo-endereco"]').value,
+                    //pear o tipo de endereço pelo checkbox selecionado
+                    //<div class="col-md-4 d-flex flex-column">
+                    //     <div class="form-check mt-3">
+                    //         <input class="form-check-input" type="checkbox" name="endereco-entrega" id="endereco-entrega">
+                    //         <label class="form-check-label" for="endereco-entrega">
+                    //         Endereço de Entrega
+                    //         </label>
+                    //     </div>
+                    //     <div class="form-check mt-3">
+                    //         <input class="form-check-input" type="checkbox" name="endereco-cobranca" id="endereco-cobranca">
+                    //         <label class="form-check-label" for="endereco-cobranca">
+                    //         Endereço de Cobrança
+                    //         </label>
+                    //     </div>
+                    // </div>
+                    tipoDeEndereco: "nenhum", // Default value
+                    cobranca: frame.querySelector('input[name="endereco-cobranca"]').checked ? "Cobranca" : "",
+                    entrega: frame.querySelector('input[name="endereco-entrega"]').checked ? "Entrega" : "",
                     observacoes: frame.querySelector('textarea[name="observacoes"]').value.trim()
                 })),
                 cartoesDeCredito: Array.from(document.querySelectorAll('.cartao-frame')).map(frame => ({

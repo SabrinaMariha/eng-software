@@ -58,6 +58,8 @@ public class Cliente extends DomainEntity {
                     enderecoDTO.bairro(),
                     enderecoDTO.cep(),
                     enderecoDTO.tipoDeEndereco(),
+                    enderecoDTO.cobranca(),
+                    enderecoDTO.entrega(),
                     enderecoDTO.observacoes()
             );
             } else {
@@ -74,6 +76,8 @@ public class Cliente extends DomainEntity {
                         enderecoDTO.bairro(),
                         enderecoDTO.cep(),
                         enderecoDTO.tipoDeEndereco(),
+                        enderecoDTO.cobranca(),
+                        enderecoDTO.entrega(),
                         enderecoDTO.observacoes()
                 );
             }
@@ -231,6 +235,8 @@ public class Cliente extends DomainEntity {
             endereco.setBairro(enderecoDTO.bairro());
             endereco.setCep(enderecoDTO.cep());
             endereco.setTipoDeEndereco(enderecoDTO.tipoDeEndereco());
+            endereco.setCobranca(enderecoDTO.cobranca());
+            endereco.setEntrega(enderecoDTO.entrega());
             endereco.setObservacoes(enderecoDTO.observacoes());
             endereco.setCliente(this); // Vincula ao cliente
 

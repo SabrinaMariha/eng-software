@@ -30,7 +30,7 @@ public class ClienteDAO implements IDAO<Cliente> {
     @Transactional
     public void save(Cliente cliente) {
         String queryCliente = "INSERT INTO cliente (nome, data_de_nascimento, genero, cpf, email, tipo_de_telefone, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        String queryEndereco = "INSERT INTO endereco (nome_pais, nome_estado, nome_cidade, tipo_de_residencia, tipo_de_logradouro, logradouro, numero, bairro, complemento, cep,  tipo_de_endereco, observacoes, cliente_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String queryEndereco = "INSERT INTO endereco (nome_pais, nome_estado, nome_cidade, tipo_de_residencia, tipo_de_logradouro, logradouro, numero, bairro, complemento, cep,  tipo_de_endereco, cobranca, entrega, observacoes, cliente_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String queryCartao = "INSERT INTO cartao_de_credito (numero, bandeira, nome_titular, validade, cvv, cliente_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection()) {
@@ -92,8 +92,10 @@ public class ClienteDAO implements IDAO<Cliente> {
             preparedStatement.setString(9, endereco.getComplemento());
             preparedStatement.setString(10, endereco.getCep());
             preparedStatement.setString(11, endereco.getTipoDeEndereco());
-            preparedStatement.setString(12, endereco.getObservacoes());
-            preparedStatement.setLong(13, clienteId); // Set the cliente_id
+            preparedStatement.setString(12, endereco.getCobranca());
+            preparedStatement.setString(13, endereco.getEntrega());
+            preparedStatement.setString(14, endereco.getObservacoes());
+            preparedStatement.setLong(15, clienteId); // Set the cliente_id
             preparedStatement.executeUpdate();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -245,6 +247,8 @@ public class ClienteDAO implements IDAO<Cliente> {
                         endereco.setComplemento(resultSet.getString("complemento"));
                         endereco.setCep(resultSet.getString("cep"));
                         endereco.setTipoDeEndereco(resultSet.getString("tipo_de_endereco"));
+                        endereco.setCobranca(resultSet.getString("cobranca"));
+                        endereco.setEntrega(resultSet.getString("entrega"));
                         endereco.setObservacoes(resultSet.getString("observacoes"));
 
                         enderecos.add(endereco);
@@ -259,8 +263,8 @@ public class ClienteDAO implements IDAO<Cliente> {
 
     public void update(Cliente clienteExistente) {
         String queryCliente = "UPDATE cliente SET nome = ?, data_de_nascimento = ?, genero = ?, cpf = ?, email = ?, tipo_de_telefone = ?, telefone = ?, senha = ? WHERE id = ?";
-        String queryEnderecoUpdate = "UPDATE endereco SET nome_pais = ?, nome_estado = ?, nome_cidade = ?, tipo_de_residencia = ?, tipo_de_logradouro = ?, logradouro = ?, numero = ?, bairro = ?, complemento = ?, cep = ?,  tipo_de_endereco = ?, observacoes = ? WHERE id = ? AND cliente_id = ?";
-        String queryEnderecoInsert = "INSERT INTO endereco (nome_pais, nome_estado, nome_cidade, tipo_de_residencia, tipo_de_logradouro, logradouro, numero, bairro, complemento, cep,  tipo_de_endereco, observacoes, cliente_id) VALUES (?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String queryEnderecoUpdate = "UPDATE endereco SET nome_pais = ?, nome_estado = ?, nome_cidade = ?, tipo_de_residencia = ?, tipo_de_logradouro = ?, logradouro = ?, numero = ?, bairro = ?, complemento = ?, cep = ?,  tipo_de_endereco = ?, cobranca = ?, entrega = ?, observacoes = ? WHERE id = ? AND cliente_id = ?";
+        String queryEnderecoInsert = "INSERT INTO endereco (nome_pais, nome_estado, nome_cidade, tipo_de_residencia, tipo_de_logradouro, logradouro, numero, bairro, complemento, cep,  tipo_de_endereco, cobranca, entrega, observacoes, cliente_id) VALUES (?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String queryCartaoUpdate = "UPDATE cartao_de_credito SET numero = ?, bandeira = ?, nome_titular = ?, validade = ?, cvv = ?, preferencial = ? WHERE id = ? AND cliente_id = ?";
         String queryCartaoInsert = "INSERT INTO cartao_de_credito (numero, bandeira, nome_titular, validade, cvv, cliente_id, preferencial) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -294,8 +298,10 @@ public class ClienteDAO implements IDAO<Cliente> {
                         preparedStatement.setString(9, endereco.getComplemento());
                         preparedStatement.setString(10, endereco.getCep());
                         preparedStatement.setString(11, endereco.getTipoDeEndereco());
-                        preparedStatement.setString(12, endereco.getObservacoes());
-                        preparedStatement.setLong(13, clienteExistente.getId());
+                        preparedStatement.setString(12, endereco.getCobranca());
+                        preparedStatement.setString(13, endereco.getEntrega());
+                        preparedStatement.setString(14, endereco.getObservacoes());
+                        preparedStatement.setLong(15, clienteExistente.getId());
                         preparedStatement.executeUpdate();
                     }
                 } else {
@@ -312,9 +318,11 @@ public class ClienteDAO implements IDAO<Cliente> {
                         preparedStatement.setString(9, endereco.getComplemento());
                         preparedStatement.setString(10, endereco.getCep());
                         preparedStatement.setString(11, endereco.getTipoDeEndereco());
-                        preparedStatement.setString(12, endereco.getObservacoes());
-                        preparedStatement.setLong(13, endereco.getId());
-                        preparedStatement.setLong(14, clienteExistente.getId());
+                        preparedStatement.setString(12, endereco.getCobranca());
+                        preparedStatement.setString(13, endereco.getEntrega());
+                        preparedStatement.setString(14, endereco.getObservacoes());
+                        preparedStatement.setLong(15, endereco.getId());
+                        preparedStatement.setLong(16, clienteExistente.getId());
                         preparedStatement.executeUpdate();
                     }
                 }

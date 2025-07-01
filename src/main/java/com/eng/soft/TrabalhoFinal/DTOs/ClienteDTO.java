@@ -48,6 +48,8 @@ public class ClienteDTO {
                         endereco.getTipoDeResidencia(),
                         endereco.getTipoDeLogradouro(),
                         endereco.getTipoDeEndereco(),
+                        endereco.getCobranca(),
+                        endereco.getEntrega(),
                         endereco.getLogradouro(),
                         endereco.getNumero(),
                         endereco.getComplemento(),
