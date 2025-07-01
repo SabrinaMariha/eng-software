@@ -49,9 +49,9 @@ public class ClienteController {
         System.out.println("Consulta recebida: " + consultaClientesDTO);
 
         Cliente clienteASerConsultado = new Cliente(consultaClientesDTO);
-        List<Cliente> clientes = clienteDAO.findAll(clienteASerConsultado);
-        Map<String, Object> resposta = new HashMap<>();
 
+        List<Cliente> clientes = fachada.findAll(clienteASerConsultado);
+        Map<String, Object> resposta = new HashMap<>();
 
         if (clientes.isEmpty()) {
             resposta.put("mensagem", "Nenhum cliente encontrado.");
@@ -64,8 +64,8 @@ public class ClienteController {
 
     @GetMapping("/editar")
     public ResponseEntity<ClienteDTO> editarCliente(@RequestParam Long id) throws SQLException {
-        Cliente cliente = clienteDAO.findById(id);
-
+       // Cliente cliente = clienteDAO.findById(id);
+        Cliente cliente = fachada.findById(id);
         // Map Cliente to ClienteDTO
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setNome(cliente.getNome());
@@ -89,14 +89,15 @@ public class ClienteController {
         System.out.println("Atualizando cliente com ID: " + id);
         System.out.println("Dados recebidos: " + clienteDados);
 
-        Cliente clienteExistente = clienteDAO.findById(id);
+        //Cliente clienteExistente = clienteDAO.findById(id);
+        Cliente clienteExistente = fachada.findById(id);
         if (clienteExistente == null) {
             return ResponseEntity.status(404).body(Map.of("mensagem", "Cliente não encontrado."));
         }
 
         // Atualiza os dados do cliente existente
         clienteExistente.editar(clienteDados);
-        clienteDAO.update(clienteExistente);
+        fachada.update(clienteExistente);
 
         Map<String, String> resposta = new HashMap<>();
         resposta.put("mensagem", "Cliente atualizado com sucesso!");

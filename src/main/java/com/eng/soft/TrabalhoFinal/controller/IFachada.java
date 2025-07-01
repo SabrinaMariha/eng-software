@@ -5,13 +5,11 @@ import com.eng.soft.TrabalhoFinal.model.DomainEntity;
 
 import java.util.List;
 
-public interface IFachada {
-
-
+public interface IFachada<DomainEntity> {
 
 	public String save(DomainEntity entity);
 	public String update(DomainEntity entity);
 	public String delete(DomainEntity entity);
 	public List<DomainEntity> findAll(DomainEntity entity);
-    public DomainEntity findById(Long id, Class<? extends DomainEntity> entityClass);
+    public DomainEntity findById(Long id) throws Exception;
 }
