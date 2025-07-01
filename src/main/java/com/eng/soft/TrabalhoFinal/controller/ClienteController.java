@@ -19,11 +19,11 @@ import java.util.Map;
 @RestController
 public class ClienteController {
 
-    FachadaCliente fachada ;
+    ClienteFachada fachada ;
     private  ClienteDAO clienteDAO;
 
     public ClienteController(ClienteDAO clienteDAO) {
-        this.fachada = new FachadaCliente(clienteDAO);
+        this.fachada = new ClienteFachada(clienteDAO);
         this.clienteDAO = clienteDAO;
 
     }
