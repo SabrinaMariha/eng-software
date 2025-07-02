@@ -1,8 +1,8 @@
 
-package com.eng.soft.TrabalhoFinal.negocio.impl;
+package com.eng.soft.TrabalhoFinal.negocio.validadoresCadCliente;
 import com.eng.soft.TrabalhoFinal.model.Cliente;
-import com.eng.soft.TrabalhoFinal.model.DomainEntity;
-import com.eng.soft.TrabalhoFinal.validacoes.IStrategy;
+import com.eng.soft.TrabalhoFinal.negocio.IStrategy;
+
 // Para todo cliente cadastrado é obrigatório o registro de ao menos um endereço de cobrança. 
 // Para todo cliente cadastrado é obrigatório o registro de ao menos um endereço de entrega. 
 // Todo cadastro de endereços associados a clientes deve ser composto dos seguintes
@@ -32,6 +32,6 @@ public class ValidarTelefone implements IStrategy<Cliente>  {
             return "O tipo de telefone do cliente é obrigatório.";
         }
 
-        return "";
+        return null;
     }
 }

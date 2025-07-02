@@ -13,6 +13,10 @@ body {
     min-height: 100vh;
 }
 
+i{
+    margin: 5px;
+}
+
 /* Sidebar Styles */
 .sidebar {
     width: 260px;
@@ -24,6 +28,18 @@ body {
     top: 0;
     z-index: 1000;
 }
+
+
+.enderecos, .cartoes {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the left */
+}
+
+.enderecos i,button, .cartoes i,button {
+    margin-bottom: 10px; /* Add spacing below the icon */
+}
+
 
 
 h2[class="mt-4"] {

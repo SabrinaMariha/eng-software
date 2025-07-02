@@ -1,9 +1,6 @@
 package com.eng.soft.TrabalhoFinal.model;
 
-import com.eng.soft.TrabalhoFinal.DTOs.CartoesDTO;
-import com.eng.soft.TrabalhoFinal.DTOs.CadastroUsuarioDTO;
-import com.eng.soft.TrabalhoFinal.DTOs.ConsultaClientesDTO;
-import com.eng.soft.TrabalhoFinal.DTOs.EnderecoDTO;
+import com.eng.soft.TrabalhoFinal.DTOs.*;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +54,6 @@ public class Cliente extends DomainEntity {
                     enderecoDTO.complemento(),
                     enderecoDTO.bairro(),
                     enderecoDTO.cep(),
-                    enderecoDTO.tipoDeEndereco(),
                     enderecoDTO.cobranca(),
                     enderecoDTO.entrega(),
                     enderecoDTO.observacoes()
@@ -75,7 +71,6 @@ public class Cliente extends DomainEntity {
                         enderecoDTO.complemento(),
                         enderecoDTO.bairro(),
                         enderecoDTO.cep(),
-                        enderecoDTO.tipoDeEndereco(),
                         enderecoDTO.cobranca(),
                         enderecoDTO.entrega(),
                         enderecoDTO.observacoes()
@@ -206,14 +201,13 @@ public class Cliente extends DomainEntity {
         this.id = id;
     }
 
-    public void editar(CadastroUsuarioDTO clienteDados) {
+    public void editar(AtualizacaoUsuarioDTO clienteDados) {
         this.nome = clienteDados.nome();
         this.dataDeNascimento = clienteDados.dataDeNascimento();
         this.cpf = clienteDados.cpf();
         this.email = clienteDados.email();
         this.tipoDeTelefone = clienteDados.tipoDeTelefone();
         this.telefone = clienteDados.telefone();
-        this.senha = clienteDados.senha();
 
         this.enderecos.clear();
         for (EnderecoDTO enderecoDTO : clienteDados.enderecos()) {
@@ -234,7 +228,6 @@ public class Cliente extends DomainEntity {
             endereco.setComplemento(enderecoDTO.complemento());
             endereco.setBairro(enderecoDTO.bairro());
             endereco.setCep(enderecoDTO.cep());
-            endereco.setTipoDeEndereco(enderecoDTO.tipoDeEndereco());
             endereco.setCobranca(enderecoDTO.cobranca());
             endereco.setEntrega(enderecoDTO.entrega());
             endereco.setObservacoes(enderecoDTO.observacoes());
@@ -271,5 +264,9 @@ public class Cliente extends DomainEntity {
     }
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public void editarSenha(AtualizacaoSenhaDTO clienteDados) {
+        this.senha = clienteDados.senha();
     }
 }

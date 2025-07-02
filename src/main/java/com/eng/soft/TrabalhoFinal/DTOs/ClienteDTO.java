@@ -1,6 +1,7 @@
 package com.eng.soft.TrabalhoFinal.DTOs;
 
 import com.eng.soft.TrabalhoFinal.model.CartaoDeCredito;
+import com.eng.soft.TrabalhoFinal.model.Cliente;
 import com.eng.soft.TrabalhoFinal.model.Endereco;
 
 import java.util.List;
@@ -46,7 +47,6 @@ public class ClienteDTO {
                         endereco.getNomePais(),
                         endereco.getTipoDeResidencia(),
                         endereco.getTipoDeLogradouro(),
-                        endereco.getTipoDeEndereco(),
                         endereco.getCobranca(),
                         endereco.getEntrega(),
                         endereco.getLogradouro(),
@@ -74,16 +74,16 @@ public class ClienteDTO {
         this.cartoesDeCredito = cartoesDTO;
     }   
 
-    public void update(ClienteDTO clienteDTO) {
-        this.nome = clienteDTO.getNome();
-        this.dataDeNascimento = clienteDTO.getDataDeNascimento();
-        this.genero = clienteDTO.getGenero();
-        this.cpf = clienteDTO.getCpf();
-        this.email = clienteDTO.getEmail();
-        this.tipoDeTelefone = clienteDTO.getTipoDeTelefone();
-        this.telefone = clienteDTO.getTelefone();
-        this.senha = clienteDTO.getSenha();
-        this.enderecos = clienteDTO.getEnderecos();
-        this.cartoesDeCredito = clienteDTO.getCartoesDeCredito();
+    public void update(Cliente cliente) {
+        setNome(cliente.getNome());
+        setDataDeNascimento(cliente.getDataDeNascimento());
+        setGenero(cliente.getGenero());
+        setCpf(cliente.getCpf());
+        setEmail(cliente.getEmail());
+        setTipoDeTelefone(cliente.getTipoDeTelefone());
+        setTelefone(cliente.getTelefone());
+        setSenha(cliente.getSenha());
+        setEnderecos(cliente.getEnderecos());
+        setCartoesDeCredito(cliente.getCartoesDeCredito());
     }
 }

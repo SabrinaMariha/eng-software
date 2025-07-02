@@ -1,6 +1,5 @@
 package com.eng.soft.TrabalhoFinal.controller;
 import com.eng.soft.TrabalhoFinal.DAO.ClienteDAO;
-import com.eng.soft.TrabalhoFinal.model.DomainEntity;
 import java.util.List;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,9 +8,11 @@ import java.util.Map;
 import com.eng.soft.TrabalhoFinal.DAO.IDAO;
 import com.eng.soft.TrabalhoFinal.model.Cliente;
 import com.eng.soft.TrabalhoFinal.negocio.*;
+import com.eng.soft.TrabalhoFinal.negocio.validadoresCadCliente.*;
 
 
-public class FachadaCliente implements IFachada<Cliente> {
+
+public class ClienteFachada implements IFachada<Cliente> {
     //responsável por chamar uma lista de strategys
     //e executar as regras de negócio
     Map<String, List<IStrategy>> rns = new HashMap<String, List<IStrategy>>();
@@ -24,14 +25,10 @@ public class FachadaCliente implements IFachada<Cliente> {
 
 
 
-    public FachadaCliente(ClienteDAO clienteDAO) {
+    public ClienteFachada (ClienteDAO clienteDAO) {
         this.clienteDAO = clienteDAO;
         regrasCliente.add(new ValidarDadosObrigatoriosCadastro());
         regrasCliente.add(new  ValidarTelefone());
-        regrasCliente.add(new ValidarDadosObrigatoriosCartoes());
-        regrasCliente.add(new ValidarBandeiraCartao());
-        regrasCliente.add(new ValidarDadosObrigatoriosEnderecos());
-        regrasCliente.add(new ValidarTiposEndereco());
 
         rns.put(Cliente.class.getName(), regrasCliente);
 
@@ -51,19 +48,54 @@ public class FachadaCliente implements IFachada<Cliente> {
         for(IStrategy s:rn) {
             String msg = s.processar(cliente);
             if(msg != null) {
-                sb.append(msg);
+                sb.append("\n"+msg);
             }
         }
         if(sb.length()==0) {
             IDAO dao = daos.get(nmClasse);
             dao.save(cliente);
+            return "Cliente cadastrado com sucesso!";
         }
-        return null;
+        return sb.toString();
     }
 
     @Override
     public String update(Cliente cliente) {
-        return "";
+        String nmClasse = cliente.getClass().getName();
+        List<IStrategy> rn = rns.get(nmClasse);
+        StringBuilder sb = new StringBuilder();
+
+        for(IStrategy s:rn) {
+            String msg = s.processar(cliente);
+            if(msg != null) {
+                sb.append("\n"+msg);
+            }
+        }
+        if(sb.length()==0) {
+            IDAO dao = daos.get(nmClasse);
+            dao.update(cliente);
+            return "Cliente atualizado com sucesso!";
+        }
+        return sb.toString();
+    }
+    @Override
+    public String updateSenha(Cliente cliente) {
+        String nmClasse = cliente.getClass().getName();
+        List<IStrategy> rn = rns.get(nmClasse);
+        StringBuilder sb = new StringBuilder();
+
+        for(IStrategy s:rn) {
+            String msg = s.processar(cliente);
+            if(msg != null) {
+                sb.append("\n"+msg);
+            }
+        }
+        if(sb.length()==0) {
+            IDAO dao = daos.get(nmClasse);
+            dao.updateSenha(cliente);
+            return "Senha atualizada com sucesso!";
+        }
+        return sb.toString();
     }
 
     @Override

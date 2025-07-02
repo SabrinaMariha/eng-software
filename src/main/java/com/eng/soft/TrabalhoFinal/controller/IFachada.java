@@ -12,4 +12,5 @@ public interface IFachada<DomainEntity> {
 	public String delete(DomainEntity entity);
 	public List<DomainEntity> findAll(DomainEntity entity);
     public DomainEntity findById(Long id) throws Exception;
+	public String updateSenha(DomainEntity entity);
 }

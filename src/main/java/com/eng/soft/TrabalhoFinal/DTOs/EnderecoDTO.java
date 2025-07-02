@@ -51,7 +51,6 @@ public record EnderecoDTO (
     String nomePais,
     String tipoDeResidencia,
     String tipoDeLogradouro,
-    String tipoDeEndereco,
     String cobranca,
     String entrega,
     String logradouro,

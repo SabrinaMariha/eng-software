@@ -1,8 +1,8 @@
-package com.eng.soft.TrabalhoFinal.negocio.impl;
-import com.eng.soft.TrabalhoFinal.model.DomainEntity;
-import com.eng.soft.TrabalhoFinal.validacoes.IStrategy;
- 
 
+package com.eng.soft.TrabalhoFinal.negocio.validadoresCadCliente;
+import com.eng.soft.TrabalhoFinal.model.Cliente;
+import com.eng.soft.TrabalhoFinal.model.Endereco;
+import com.eng.soft.TrabalhoFinal.negocio.IStrategy;
 
 // Todo cartão de crédito associado a um cliente deverá ser composto pelos seguintes campos: 
 // Nº do Cartão, Nome impresso no Cartão, Bandeira do Cartão e Código de Segurança.
@@ -16,10 +16,10 @@ public class ValidarDadosObrigatoriosEnderecos implements IStrategy<Cliente>  {
     public String processar(Cliente cliente) {
        
         for (Endereco endereco : cliente.getEnderecos()) {
-            if (endereco.getTipoResidencia() == null || endereco.getTipoResidencia().isEmpty()) {
+            if (endereco.getTipoDeResidencia() == null || endereco.getTipoDeResidencia().isEmpty()) {
                 return "O tipo de residência é obrigatório.";
             }
-            if (endereco.getTipoLogradouro() == null || endereco.getTipoLogradouro().isEmpty()) {
+            if (endereco.getTipoDeLogradouro() == null || endereco.getTipoDeLogradouro().isEmpty()) {
                 return "O tipo de logradouro é obrigatório.";
             }
             if (endereco.getLogradouro() == null || endereco.getLogradouro().isEmpty()) {
@@ -34,17 +34,18 @@ public class ValidarDadosObrigatoriosEnderecos implements IStrategy<Cliente>  {
             if (endereco.getCep() == null || endereco.getCep().isEmpty()) {
                 return "O CEP é obrigatório.";
             }
-            if (endereco.getCidade() == null || endereco.getCidade().isEmpty()) {
+            if (endereco.getNomeCidade() == null || endereco.getNomeCidade().isEmpty()) {
                 return "A cidade é obrigatória.";
             }
-            if (endereco.getEstado() == null || endereco.getEstado().isEmpty()) {
+            if (endereco.getNomeEstado() == null || endereco.getNomeEstado().isEmpty()) {
                 return "O estado é obrigatório.";
             }
-            if (endereco.getPais() == null || endereco.getPais().isEmpty()) {
+            if (endereco.getNomePais() == null || endereco.getNomePais().isEmpty()) {
                 return "O país é obrigatório.";
             }
         }
+        new ValidarTiposEndereco().processar(cliente);
 
-        return "";
+        return null;
     }
 }

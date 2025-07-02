@@ -1,4 +1,4 @@
-package com.eng.soft.TrabalhoFinal.validacoes;
+package com.eng.soft.TrabalhoFinal.negocio;
 
 import com.eng.soft.TrabalhoFinal.model.DomainEntity;
 
