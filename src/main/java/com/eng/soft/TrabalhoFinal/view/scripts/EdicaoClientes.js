@@ -67,8 +67,6 @@ function addAddress(endereco = {}) {
     newAddress.querySelector('[name="cidade"]').value = endereco.nomeCidade || "";
     newAddress.querySelector('[name="estado"]').value = endereco.nomeEstado || "";
     newAddress.querySelector('[name="pais"]').value = endereco.nomePais || "";
-    newAddress.querySelector('[name="tipo-endereco"]').value = "nenhum";// Default value
-    // Handle checkboxes for cobranca and entrega
     newAddress.querySelector('input[name="endereco-cobranca"]').checked = endereco.cobranca === "Cobranca";
     newAddress.querySelector('input[name="endereco-entrega"]').checked = endereco.entrega === "Entrega";
     // Observações
@@ -136,7 +134,6 @@ if (form) {
                 bairro: frame.querySelector('input[name="bairro"]').value.trim(),
                 complemento: frame.querySelector('input[name="complemento"]').value.trim(),
                 cep: frame.querySelector('input[name="cep"]').value.trim(),
-                tipoDeEndereco: "nenhum", // Default value
                 cobranca: frame.querySelector('input[name="endereco-cobranca"]').checked ? "Cobranca" : "",
                 entrega: frame.querySelector('input[name="endereco-entrega"]').checked ? "Entrega" : "",
                 observacoes: frame.querySelector('textarea[name="observacoes"]').value.trim()
@@ -175,8 +172,8 @@ if (form) {
             email: document.getElementById("email").value.trim(),
             tipoDeTelefone: document.getElementById("tipo-telefone").value,
             telefone: document.getElementById("telefone").value.trim(),
-            senha: document.getElementById("senha").value.trim(),
-            confirmacaoSenha: document.getElementById("confirmacao-senha").value.trim(),
+           // senha: document.getElementById("senha").value.trim(),
+            //confirmacaoSenha: document.getElementById("confirmacao-senha").value.trim(),
             enderecos,
             cartoesDeCredito
         };
